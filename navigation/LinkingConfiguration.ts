@@ -6,6 +6,16 @@ export default {
     screens: {
       Root: {
         screens: {
+          Onboarding: {
+            screens: {
+              Onboarding: 'Onboarding',
+            },
+          },
+          Login: {
+            screens: {
+              Login: 'Login',
+            },
+          },
           TabOne: {
             screens: {
               TabOneScreen: 'one',

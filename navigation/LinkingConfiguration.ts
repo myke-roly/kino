@@ -11,9 +11,9 @@ export default {
               Onboarding: 'Onboarding',
             },
           },
-          Login: {
+          Signup: {
             screens: {
-              Login: 'Login',
+              Signup: 'Signup',
             },
           },
           TabOne: {

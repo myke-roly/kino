@@ -4,6 +4,7 @@ import React, { FC } from 'react';
 import { StyleSheet, Text, View, Image, Button, Platform, ActivityIndicator } from 'react-native';
 import { TouchableHighlight } from 'react-native-gesture-handler';
 import { RootStackParamList } from '../types';
+import { stylesGlobal } from '../styles';
 
 type OnboardingNavigatorProps = StackNavigationProp<RootStackParamList>;
 
@@ -19,14 +20,14 @@ const Onboarding: FC<PropsI> = ({ navigation }) => {
 
   if (!fontsLoaded) {
     return (
-      <View style={styles.onboarding}>
+      <View style={stylesGlobal.container}>
         <ActivityIndicator />
       </View>
     );
   }
 
   return (
-    <View style={styles.onboarding}>
+    <View style={stylesGlobal.container}>
       <Image source={require('../assets/images/logo.png')} style={styles.logo} />
       <Text style={styles.title}>Welcome to Kino</Text>
       {/*redirect to Home*/}
@@ -34,8 +35,8 @@ const Onboarding: FC<PropsI> = ({ navigation }) => {
       <View style={styles.btnWrapper}>
         <TouchableHighlight
           style={styles.btn}
-          accessibilityLabel="Go Login"
-          onPress={() => navigation.navigate('Layout')}
+          accessibilityLabel="Go Signup"
+          onPress={() => navigation.navigate('Signup')}
         >
           <Text style={styles.btnText}>Continue</Text>
         </TouchableHighlight>
@@ -45,13 +46,6 @@ const Onboarding: FC<PropsI> = ({ navigation }) => {
 };
 
 const styles = StyleSheet.create({
-  onboarding: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#fff',
-    padding: 30,
-  },
   title: {
     fontWeight: 'bold',
     fontSize: 20,
@@ -76,7 +70,7 @@ const styles = StyleSheet.create({
   },
   btnText: {
     color: 'white',
-    fontSize: 20,
+    fontSize: 18,
     textAlign: 'center',
   },
 });

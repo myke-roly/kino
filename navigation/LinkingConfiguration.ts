@@ -16,6 +16,11 @@ export default {
               Signup: 'Signup',
             },
           },
+          Signin: {
+            screens: {
+              Signin: 'Signin',
+            },
+          },
           TabOne: {
             screens: {
               TabOneScreen: 'one',

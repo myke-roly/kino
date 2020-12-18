@@ -1,7 +1,6 @@
 import { StackNavigationProp } from '@react-navigation/stack';
-import { useFonts } from 'expo-font';
 import React, { FC } from 'react';
-import { StyleSheet, Text, View, Image, Button, Platform, ActivityIndicator } from 'react-native';
+import { StyleSheet, Text, View, Image, Platform } from 'react-native';
 import { TouchableHighlight } from 'react-native-gesture-handler';
 import { RootStackParamList } from '../types';
 import { stylesGlobal } from '../styles';
@@ -13,19 +12,6 @@ interface PropsI {
 }
 
 const Onboarding: FC<PropsI> = ({ navigation }) => {
-  let [fontsLoaded] = useFonts({
-    AndikaNewBasic: require('../assets/fonts/AndikaNewBasic-Regular.ttf'),
-    SpaceMono: require('../assets/fonts/SpaceMono-Regular.ttf'),
-  });
-
-  if (!fontsLoaded) {
-    return (
-      <View style={stylesGlobal.container}>
-        <ActivityIndicator />
-      </View>
-    );
-  }
-
   return (
     <View style={stylesGlobal.container}>
       <Image source={require('../assets/images/logo.png')} style={styles.logo} />
@@ -36,7 +22,7 @@ const Onboarding: FC<PropsI> = ({ navigation }) => {
         <TouchableHighlight
           style={styles.btn}
           accessibilityLabel="Go Signup"
-          onPress={() => navigation.navigate('Signup')}
+          onPress={() => navigation.navigate('Signin')}
         >
           <Text style={styles.btnText}>Continue</Text>
         </TouchableHighlight>

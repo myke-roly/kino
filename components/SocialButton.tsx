@@ -4,20 +4,16 @@ import { StyleSheet, Text, TouchableHighlight, View } from 'react-native';
 
 interface PropsI {
   onPres?: () => void;
-  name?: string;
   icon: string;
+  accessibilityLabel?: string;
 }
 
-function capitalize(str: string): string {
-  return str.charAt(0).toUpperCase() + str.slice(1);
-}
-
-const SocialButton: FC<PropsI> = ({ name = '', icon, onPres }) => {
+const SocialButton: FC<PropsI> = ({ children, icon, onPres, accessibilityLabel }) => {
   return (
     <View style={styles.btnWrapper}>
-      <TouchableHighlight style={styles.btn} accessibilityLabel={`go to singup to  ${name}`} onPress={onPres}>
+      <TouchableHighlight style={styles.btn} accessibilityLabel={accessibilityLabel} onPress={onPres}>
         <Text style={styles.text}>
-          <AntDesign size={18} name={icon} /> Sing up with {capitalize(name)}
+          <AntDesign size={18} name={icon} /> {children}
         </Text>
       </TouchableHighlight>
     </View>
@@ -35,8 +31,15 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     borderRadius: 50,
     padding: 18,
-    shadowOpacity: 0.5,
-    elevation: 3,
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 12,
+    },
+    shadowOpacity: 0.37,
+    shadowRadius: 7.5,
+
+    elevation: 12,
   },
   text: {
     textAlign: 'center',

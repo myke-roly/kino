@@ -1,3 +1,5 @@
+import { StackNavigationProp } from '@react-navigation/stack';
+
 export type RootStackParamList = {
   Onboarding: undefined;
   Signup: undefined;
@@ -23,3 +25,5 @@ export type TabTwoParamList = {
 export type UserTabParamList = {
   TabUserScreen: undefined;
 };
+
+export type NavigatorProps = StackNavigationProp<RootStackParamList>;

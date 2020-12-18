@@ -1,14 +1,11 @@
-import { StackNavigationProp } from '@react-navigation/stack';
 import React, { FC } from 'react';
-import { StyleSheet, Text, View, Image, Platform } from 'react-native';
+import { StyleSheet, Text, View, Image } from 'react-native';
 import { TouchableHighlight } from 'react-native-gesture-handler';
-import { RootStackParamList } from '../types';
+import { NavigatorProps } from '../types';
 import { stylesGlobal } from '../styles';
 
-type OnboardingNavigatorProps = StackNavigationProp<RootStackParamList>;
-
 interface PropsI {
-  navigation: OnboardingNavigatorProps;
+  navigation: NavigatorProps;
 }
 
 const Onboarding: FC<PropsI> = ({ navigation }) => {
@@ -37,7 +34,6 @@ const styles = StyleSheet.create({
     fontSize: 20,
     marginTop: 40,
     color: '#2c2929',
-    fontFamily: Platform.OS ? 'SpaceMono' : 'AndikaNewBasic',
   },
   logo: {
     height: 150,

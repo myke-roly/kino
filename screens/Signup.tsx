@@ -1,10 +1,15 @@
-import React, { useCallback, useState } from 'react';
-import { Alert, Button, StyleSheet, Text, View } from 'react-native';
-import { TextInput, TouchableHighlight } from 'react-native-gesture-handler';
+import React, { FC, useCallback, useState } from 'react';
+import { Alert, StyleSheet, Text, View, TextInput, TouchableHighlight } from 'react-native';
 import { stylesGlobal } from '../styles';
 import SocialButton from '../components/SocialButton';
+import ButtonForm from '../components/ButtonForm';
+import { NavigatorProps } from '../types';
 
-const Signup = () => {
+interface PropsI {
+  navigation: NavigatorProps;
+}
+
+const Signup: FC<PropsI> = ({ navigation }) => {
   const [email, setEmail] = useState<string>('');
   const [terms, setTerms] = useState<boolean>(false);
 
@@ -27,7 +32,7 @@ const Signup = () => {
     );
   }
 
-  function sendForm() {
+  function sendForm(): void {
     if (!terms) {
       return CreateTermsModal();
     }
@@ -36,29 +41,38 @@ const Signup = () => {
     console.log('send form');
   }
 
-  function isEmail() {
+  function isEmail(): boolean {
     return email.includes('@');
   }
 
   return (
     <View style={stylesGlobal.container}>
       <Text style={{ color: 'red' }}>{terms + ''}</Text>
-      <Text style={styles.title}>Sing Up</Text>
-      <SocialButton name="google" icon="google" onPres={() => console.log('login with google')} />
-      <SocialButton name="apple" icon="apple1" onPres={() => console.log('login with apple')} />
+      <Text style={stylesGlobal.titleForm}>Sing Up</Text>
+      <SocialButton icon="google" onPres={() => console.log('login with google')}>
+        Sign up with Google
+      </SocialButton>
+      <SocialButton icon="apple1" onPres={() => console.log('login with apple')}>
+        Sign up with Apple
+      </SocialButton>
       <Text style={styles.placeholder}>Or get a link emailed to you</Text>
       <TextInput
-        style={styles.input}
+        style={stylesGlobal.input}
         placeholderTextColor="#ccc"
         placeholder="Email address"
         onChangeText={handleChangeText}
       />
-      <View style={styles.btnWrapper}>
-        <TouchableHighlight disabled={!isEmail()} style={isEmail() ? styles.btn : styles.disable} onPress={sendForm}>
-          <Text style={styles.btnText}>Email me a singup link</Text>
-        </TouchableHighlight>
-      </View>
+      <ButtonForm disable={!isEmail()} sendForm={sendForm}>
+        Email me a singup link
+      </ButtonForm>
+      <Text style={{ marginTop: 20 }}>
+        Have an account?{' '}
+        <Text style={{ color: '#4b73ff', fontWeight: 'bold' }} onPress={() => navigation.navigate('Signin')}>
+          Sign In
+        </Text>
+      </Text>
       <Text>{email}</Text>
+
       <View style={styles.footer}>
         <Text style={{ textAlign: 'center' }}>You are completely safe</Text>
         <View>
@@ -71,50 +85,10 @@ const Signup = () => {
   );
 };
 
-const baseBtn = {
-  borderRadius: 50,
-  paddingVertical: 18,
-  shadowOpacity: 0.5,
-  elevation: 5,
-  marginTop: 25,
-};
-
 const styles = StyleSheet.create({
-  title: {
-    fontSize: 30,
-    color: 'black',
-    fontWeight: 'bold',
-    marginBottom: 30,
-  },
   placeholder: {
     color: '#ccc',
     marginVertical: 20,
-  },
-  input: {
-    width: '100%',
-    backgroundColor: '#fff',
-    borderRadius: 50,
-    paddingVertical: 15,
-    paddingHorizontal: 20,
-    shadowOpacity: 0.5,
-    elevation: 2,
-    color: '#ccc',
-  },
-  btnWrapper: {
-    width: '100%',
-  },
-  btn: {
-    ...baseBtn,
-    backgroundColor: '#4b73ff',
-  },
-  disable: {
-    ...baseBtn,
-    backgroundColor: '#879be9',
-  },
-  btnText: {
-    textAlign: 'center',
-    color: 'white',
-    fontSize: 15,
   },
   footer: {
     marginTop: 20,

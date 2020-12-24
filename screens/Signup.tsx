@@ -52,18 +52,31 @@ const Signup: FC<PropsI> = ({ navigation }) => {
       <SocialButton icon="google" onPres={() => console.log('login with google')}>
         Sign up with Google
       </SocialButton>
-      <SocialButton icon="apple1" onPres={() => console.log('login with apple')}>
+      {/* <SocialButton icon="apple1" onPres={() => console.log('login with apple')}>
         Sign up with Apple
-      </SocialButton>
-      <Text style={styles.placeholder}>Or get a link emailed to you</Text>
+      </SocialButton> */}
+      <Text style={styles.placeholder}>Sign in with email</Text>
+      <TextInput
+        style={stylesGlobal.input}
+        placeholderTextColor="#ccc"
+        placeholder="Usernam"
+        onChangeText={handleChangeText}
+      />
       <TextInput
         style={stylesGlobal.input}
         placeholderTextColor="#ccc"
         placeholder="Email address"
         onChangeText={handleChangeText}
       />
+      <TextInput
+        style={stylesGlobal.input}
+        placeholderTextColor="#ccc"
+        placeholder="Password"
+        onChangeText={handleChangeText}
+        secureTextEntry={true}
+      />
       <ButtonForm disable={!isEmail()} sendForm={sendForm}>
-        Email me a singup link
+        Sign Up
       </ButtonForm>
       <Text style={{ marginTop: 20 }}>
         Have an account?{' '}

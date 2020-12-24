@@ -3,6 +3,7 @@ import { StyleSheet, Text, View, Image } from 'react-native';
 import { TouchableHighlight } from 'react-native-gesture-handler';
 import { NavigatorProps } from '../types';
 import { stylesGlobal } from '../styles';
+import Signup from './Signup';
 
 interface PropsI {
   navigation: NavigatorProps;
@@ -19,10 +20,13 @@ const Onboarding: FC<PropsI> = ({ navigation }) => {
         <TouchableHighlight
           style={styles.btn}
           accessibilityLabel="Go Signup"
-          onPress={() => navigation.navigate('Signin')}
+          onPress={() => {
+            navigation.navigate('Signin');
+          }}
         >
           <Text style={styles.btnText}>Continue</Text>
         </TouchableHighlight>
+        <Signup navigation={navigation} />
       </View>
     </View>
   );

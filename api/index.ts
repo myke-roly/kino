@@ -2,7 +2,7 @@ import { fetchModule, TYPES, Methods, FetchModuleI } from './utils';
 
 export { TYPES };
 
-//url, token, payload = undefined, type = TYPES.default
+
 export const httpModules = {
   async get(options: FetchModuleI) {
     try {

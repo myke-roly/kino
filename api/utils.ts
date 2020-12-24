@@ -31,6 +31,7 @@ export interface FetchModuleI {
 
 // export const fetchModule: FetchModuleI = async(url, token = null, method = Methods.get, payload = null, type = TYPES.default): Promise<any> => {
 export const fetchModule = async (options: FetchModuleI): Promise<any> => {
+  console.log(options);
   const { url, token, method, payload, type } = options;
 
   const headers = token
@@ -48,11 +49,11 @@ export const fetchModule = async (options: FetchModuleI): Promise<any> => {
     crossDomain: true,
     method: method,
     headers: headers,
-    body: payload,
+    body: JSON.stringify(payload),
   };
 
   try {
-    const response = await fetch(`${URL_BASE}${url}`, requestOptions);
+    const response = await fetch(`${URL_BASE}/${url}`, requestOptions);
     const textBody = await response.text();
     const data = textBody.length > 0 ? JSON.parse(textBody) : null;
     return { response, data };

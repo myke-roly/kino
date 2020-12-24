@@ -27,3 +27,11 @@ export type UserTabParamList = {
 };
 
 export type NavigatorProps = StackNavigationProp<RootStackParamList>;
+
+export interface UserSigninI {
+  email: string;
+  password: string;
+}
+export interface UserSignupI extends UserSigninI {
+  username: string;
+}

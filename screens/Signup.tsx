@@ -4,7 +4,7 @@ import { stylesGlobal } from '../styles';
 import SocialButton from '../components/SocialButton';
 import ButtonForm from '../components/ButtonForm';
 import { NavigatorProps, UserSignupI } from '../types';
-import { createAccount } from '../state';
+
 interface PropsI {
   navigation: NavigatorProps;
 }
@@ -24,8 +24,6 @@ const Signup: FC<PropsI> = ({ navigation }) => {
       email,
       password,
     };
-
-    createAccount(user);
   }
 
   function isEmail(): boolean {

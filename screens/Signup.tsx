@@ -1,13 +1,16 @@
-import React, { FC, useState } from 'react';
+import React, { FC, useEffect, useState } from 'react';
 import { Alert, StyleSheet, Text, View, TextInput } from 'react-native';
 import { stylesGlobal } from '../styles';
 import SocialButton from '../components/SocialButton';
 import ButtonForm from '../components/ButtonForm';
+import Loading from '../components/Loader';
+
 import { NavigatorProps, UserSignupI } from '../types';
 
-import { sigup } from '../state/auth/auth.action';
+import { signupSelector } from '../state/auth/auth.selector';
 import { useDispatch, useSelector } from 'react-redux';
 import { TYPES } from '../state/auth/auth.types';
+import { useAuthentication } from '../hooks/useAsyncStorage';
 
 interface PropsI {
   navigation: NavigatorProps;
@@ -18,8 +21,11 @@ const Signup: FC<PropsI> = ({ navigation }) => {
   const [password, setPassword] = useState<string>('');
   const [username, setUsername] = useState<string>('');
 
+  const { token, saveToken, getToken } = useAuthentication();
+  console.log(token);
+
   const dispatch = useDispatch();
-  const data = useSelector((state) => state);
+  const { data, error, loading } = useSelector((state) => signupSelector(state));
 
   function CreateTermsModal() {
     return Alert.alert('Termns & Condition');
@@ -33,65 +39,85 @@ const Signup: FC<PropsI> = ({ navigation }) => {
     };
 
     dispatch({ type: TYPES.SIGNUP_REQUEST, user: user });
+    setUsername('');
+    setEmail('');
+    setPassword('');
   }
+
+  console.log(data, error, loading);
 
   function isEmail(): boolean {
     return email.includes('@');
   }
 
+  useEffect(() => {
+    getToken();
+    if (token) navigation.navigate('Layout');
+    if (data?.token) {
+      saveToken(data.token);
+      navigation.navigate('Layout');
+    }
+  }, [data, token]);
+
   return (
-    <View style={stylesGlobal.container}>
-      <Text style={stylesGlobal.titleForm}>Sign Up</Text>
-      <SocialButton icon="google" onPres={() => console.log('login with google')}>
-        Sign up with Google
-      </SocialButton>
-      {/* <SocialButton icon="apple1" onPres={() => console.log('login with apple')}>
+    <>
+      {loading && <Loading />}
+      <View style={stylesGlobal.container}>
+        <Text style={stylesGlobal.titleForm}>Sign Up</Text>
+        <SocialButton icon="google" onPres={() => console.log('login with google')}>
+          Sign up with Google
+        </SocialButton>
+        {/* <SocialButton icon="apple1" onPres={() => console.log('login with apple')}>
         Sign up with Apple
       </SocialButton> */}
-      <Text style={styles.placeholder}>Use Email</Text>
-      <TextInput
-        style={stylesGlobal.input}
-        placeholderTextColor="#ccc"
-        placeholder="Username"
-        onChangeText={(text) => setUsername(text)}
-      />
-      <TextInput
-        style={stylesGlobal.input}
-        placeholderTextColor="#ccc"
-        placeholder="Email address"
-        onChangeText={(text) => setEmail(text)}
-      />
-      <TextInput
-        style={stylesGlobal.input}
-        placeholderTextColor="#ccc"
-        placeholder="Password"
-        onChangeText={(text) => setPassword(text)}
-        secureTextEntry={true}
-      />
-      <ButtonForm disable={!isEmail()} sendForm={sendForm}>
-        Sign Up
-      </ButtonForm>
-      <Text style={{ marginTop: 20 }}>
-        Have an account?{' '}
-        <Text style={{ color: '#4b73ff', fontWeight: 'bold' }} onPress={() => navigation.navigate('Signin')}>
-          Sign In
-        </Text>
-      </Text>
-      <Text>{email}</Text>
-      <Text>{username}</Text>
-      <Text>{password}</Text>
-
-      <View style={styles.footer}>
-        <Text style={styles.term}>
-          By continuinig, you agree to KinoApp{' '}
-          <Text style={styles.readTerm} onPress={CreateTermsModal}>
-            Terms of Service.
+        <Text style={styles.placeholder}>Or</Text>
+        <TextInput
+          style={stylesGlobal.input}
+          placeholderTextColor="#ccc"
+          placeholder="Username"
+          value={username}
+          onChangeText={(text) => setUsername(text)}
+        />
+        <TextInput
+          style={stylesGlobal.input}
+          placeholderTextColor="#ccc"
+          placeholder="Email address"
+          value={email}
+          onChangeText={(text) => setEmail(text)}
+        />
+        <TextInput
+          style={stylesGlobal.input}
+          placeholderTextColor="#ccc"
+          placeholder="Password"
+          value={password}
+          onChangeText={(text) => setPassword(text)}
+          secureTextEntry={true}
+        />
+        <ButtonForm disable={!isEmail()} sendForm={sendForm}>
+          Sign Up
+        </ButtonForm>
+        <Text style={{ marginTop: 20 }}>
+          Have an account?{' '}
+          <Text style={{ color: '#4b73ff', fontWeight: 'bold' }} onPress={() => navigation.navigate('Signin')}>
+            Sign In
           </Text>
-          . We will manage information about you as describe in our Privacy Policy and Cookie Policy
         </Text>
-        <View></View>
+        <Text>{email}</Text>
+        <Text>{username}</Text>
+        <Text>{password}</Text>
+
+        <View style={styles.footer}>
+          <Text style={styles.term}>
+            By continuinig, you agree to KinoApp{' '}
+            <Text style={styles.readTerm} onPress={CreateTermsModal}>
+              Terms of Service.
+            </Text>
+            . We will manage information about you as describe in our Privacy Policy and Cookie Policy
+          </Text>
+          <View></View>
+        </View>
       </View>
-    </View>
+    </>
   );
 };
 

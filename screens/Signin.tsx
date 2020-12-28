@@ -31,10 +31,10 @@ export const Signin: FC<PropsI> = ({ navigation }) => {
 
   useEffect(() => {
     getToken();
-    if (token) navigation.navigate('Layout');
+    if (token) navigation.replace('Layout');
     if (data?.token) {
       saveToken(data.token);
-      navigation.navigate('Layout');
+      navigation.navigate('Preference');
     }
   }, [data, token]);
 

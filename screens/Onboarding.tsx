@@ -1,9 +1,9 @@
 import React, { FC } from 'react';
-import { StyleSheet, Text, View, Image } from 'react-native';
-import { TouchableHighlight } from 'react-native-gesture-handler';
+import { StyleSheet, Text, View, Image, Button } from 'react-native';
 import { NavigatorProps } from '../types';
 import { stylesGlobal } from '../styles';
 import Signup from './Signup';
+import Buttons from '../components/Buttons';
 
 interface PropsI {
   navigation: NavigatorProps;
@@ -16,18 +16,20 @@ const Onboarding: FC<PropsI> = ({ navigation }) => {
       <Text style={styles.title}>Welcome to Kino</Text>
       {/*redirect to Home*/}
 
-      <View style={styles.btnWrapper}>
-        <TouchableHighlight
-          style={styles.btn}
-          accessibilityLabel="Go Signup"
-          onPress={() => {
-            navigation.navigate('Signin');
-          }}
-        >
-          <Text style={styles.btnText}>Continue</Text>
-        </TouchableHighlight>
-        <Signup navigation={navigation} />
-      </View>
+      <Buttons
+        onPress={() => {
+          navigation.navigate('Signin');
+        }}
+        title="Continue"
+      />
+      <Button
+        title="next"
+        onPress={() => {
+          navigation.navigate('Preference');
+        }}
+      />
+
+      {/* <Signup navigation={navigation} /> */}
     </View>
   );
 };
@@ -43,21 +45,6 @@ const styles = StyleSheet.create({
     height: 150,
     width: 150,
     resizeMode: 'cover',
-  },
-  btnWrapper: {
-    position: 'absolute',
-    bottom: 50,
-    width: '100%',
-  },
-  btn: {
-    backgroundColor: '#4b73ff',
-    padding: 15,
-    borderRadius: 10,
-  },
-  btnText: {
-    color: 'white',
-    fontSize: 18,
-    textAlign: 'center',
   },
 });
 

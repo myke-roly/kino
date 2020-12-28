@@ -52,10 +52,10 @@ const Signup: FC<PropsI> = ({ navigation }) => {
 
   useEffect(() => {
     getToken();
-    if (token) navigation.navigate('Layout');
+    if (token) navigation.navigate('Preference');
     if (data?.token) {
       saveToken(data.token);
-      navigation.navigate('Layout');
+      navigation.navigate('Preference');
     }
   }, [data, token]);
 

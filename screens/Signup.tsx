@@ -5,6 +5,10 @@ import SocialButton from '../components/SocialButton';
 import ButtonForm from '../components/ButtonForm';
 import { NavigatorProps, UserSignupI } from '../types';
 
+import { sigup } from '../state/auth/auth.action';
+import { useDispatch, useSelector } from 'react-redux';
+import { TYPES } from '../state/auth/auth.types';
+
 interface PropsI {
   navigation: NavigatorProps;
 }
@@ -13,6 +17,9 @@ const Signup: FC<PropsI> = ({ navigation }) => {
   const [email, setEmail] = useState<string>('');
   const [password, setPassword] = useState<string>('');
   const [username, setUsername] = useState<string>('');
+
+  const dispatch = useDispatch();
+  const data = useSelector((state) => state);
 
   function CreateTermsModal() {
     return Alert.alert('Termns & Condition');
@@ -24,6 +31,8 @@ const Signup: FC<PropsI> = ({ navigation }) => {
       email,
       password,
     };
+
+    dispatch({ type: TYPES.SIGNUP_REQUEST, user: user });
   }
 
   function isEmail(): boolean {

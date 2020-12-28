@@ -2,7 +2,7 @@ import React, { FC } from 'react';
 import { StyleSheet, Text, TouchableHighlight, View } from 'react-native';
 
 interface PropsI {
-  disable: boolean;
+  disable?: boolean;
   sendForm?(): void;
 }
 

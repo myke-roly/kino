@@ -18,8 +18,20 @@ function* watcherSignup(payload: Payload) {
   }
 }
 
+function* watcherSignin(payload: Payload) {
+  try {
+    const data = yield call(service.sigin, payload.user);
+    console.log(data);
+    yield put({ type: TYPES.SIGNIN_SUCCESS, payload: data });
+  } catch (error) {
+    console.error(error);
+    yield put({ type: TYPES.SIGNIN_FAILED });
+  }
+}
+
 function* authSaga() {
   yield takeEvery<any>(TYPES.SIGNUP_REQUEST, watcherSignup);
+  yield takeEvery<any>(TYPES.SIGNIN_REQUEST, watcherSignin);
 }
 
 export default authSaga;

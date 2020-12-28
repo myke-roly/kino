@@ -1,6 +1,6 @@
 import httpModules from '../../api';
 import { Methods, TYPES as typeRequest } from '../../api/utils';
-import { UserSignupI } from '../../types';
+import { UserSigninI, UserSignupI } from '../../types';
 import { AuthActionsTypes, TYPES } from './auth.types';
 
 export async function sigup(user: UserSignupI): Promise<any> {
@@ -22,8 +22,25 @@ export async function sigup(user: UserSignupI): Promise<any> {
   }
 }
 
+export async function sigin(user: UserSigninI): Promise<any> {
+  const options = {
+    url: 'auth/signin',
+    method: Methods.post,
+    payload: user,
+    type: typeRequest.json,
+  };
+
+  try {
+    const data = await httpModules.post(options);
+    return data;
+  } catch (error) {
+    console.error(error);
+    return error.message;
+  }
+}
+
 export function logout(): AuthActionsTypes {
   return {
-    type: TYPES.SIGNUP_LOGOUT,
+    type: TYPES.LOGOUT,
   };
 }

@@ -3,7 +3,11 @@ export enum TYPES {
   SIGNUP_SUCCESS = 'SIGNUP_SUCCESS',
   SIGNUP_FAILED = 'SIGNUP_FAILED',
 
-  SIGNUP_LOGOUT = 'SIGNUP_LOGOUT',
+  SIGNIN_REQUEST = 'SIGNIN_REQUEST',
+  SIGNIN_SUCCESS = 'SIGNIN_SUCCESS',
+  SIGNIN_FAILED = 'SIGNIN_FAILED',
+
+  LOGOUT = 'LOGOUT',
 }
 
 export interface InitialStateI {
@@ -20,6 +24,7 @@ export const initialState: InitialStateI = {
 
 export interface AuthI {
   auth: InitialStateI;
+  signin: InitialStateI;
 }
 
 export interface UserI {
@@ -41,8 +46,28 @@ interface SignupActionFailed {
   type: typeof TYPES.SIGNUP_FAILED;
 }
 
-interface LogoutpAction {
-  type: typeof TYPES.SIGNUP_LOGOUT;
+interface SigninActionRequest {
+  type: typeof TYPES.SIGNIN_REQUEST;
 }
 
-export type AuthActionsTypes = SignupActionRequest | SignupActionSucess | SignupActionFailed | LogoutpAction;
+interface SigninActionSucess {
+  type: typeof TYPES.SIGNIN_SUCCESS;
+  payload: {} | [] | any;
+}
+
+interface SigninActionFailed {
+  type: typeof TYPES.SIGNIN_FAILED;
+}
+
+interface LogoutpAction {
+  type: typeof TYPES.LOGOUT;
+}
+
+export type AuthActionsTypes =
+  | SignupActionRequest
+  | SignupActionSucess
+  | SignupActionFailed
+  | LogoutpAction
+  | SigninActionRequest
+  | SigninActionSucess
+  | SigninActionFailed;

@@ -12,22 +12,21 @@ interface PropsI {
   navigation: NavigatorProps;
 }
 
+export const movies: any[] = [
+  { name: 'mike' },
+  { name: 'mike' },
+  { name: 'mike' },
+  { name: 'mike' },
+  { name: 'mike' },
+  { name: 'mike' },
+  { name: 'mike' },
+  { name: 'mike' },
+  { name: 'mike' },
+  { name: 'mike' },
+  { name: 'mike' },
+  { name: 'mike' },
+];
 const Preference: FC<PropsI> = ({ navigation }) => {
-  const movies: any[] = [
-    { name: 'mike' },
-    { name: 'mike' },
-    { name: 'mike' },
-    { name: 'mike' },
-    { name: 'mike' },
-    { name: 'mike' },
-    { name: 'mike' },
-    { name: 'mike' },
-    { name: 'mike' },
-    { name: 'mike' },
-    { name: 'mike' },
-    { name: 'mike' },
-  ];
-
   async function getMovies(): Promise<any> {
     navigation.navigate('Layout');
     const options = {

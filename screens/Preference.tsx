@@ -1,10 +1,18 @@
-import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import React, { FC } from 'react';
+import { Button, StyleSheet, Text, View } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
 import Buttons from '../components/Buttons';
 import { stylesGlobal } from '../styles';
 
-const Preference = () => {
+import httpModules from '../api';
+import { Methods, TYPES as typeRequest } from '../api/utils';
+import { NavigatorProps } from '../types';
+
+interface PropsI {
+  navigation: NavigatorProps;
+}
+
+const Preference: FC<PropsI> = ({ navigation }) => {
   const movies: any[] = [
     { name: 'mike' },
     { name: 'mike' },
@@ -19,20 +27,44 @@ const Preference = () => {
     { name: 'mike' },
     { name: 'mike' },
   ];
+
+  async function getMovies(): Promise<any> {
+    navigation.navigate('Layout');
+    const options = {
+      url: 'discover/movie',
+      method: Methods.get,
+      type: typeRequest.json,
+      movies: true,
+      params: 'page=1',
+    };
+
+    try {
+      const data = await httpModules.get(options);
+      console.log(data);
+      return data;
+    } catch (error) {
+      console.error(error);
+      return error.message;
+    }
+  }
+
   return (
     <>
       <View style={stylesGlobal.container}>
         <ScrollView showsVerticalScrollIndicator={false}>
           <Text style={styles.title}>Pick your favorite movies</Text>
           <View style={styles.list}>
-            {movies.map((movie) => (
-              <Text style={styles.item}>{movie.name}</Text>
+            {movies.map((movie, index) => (
+              <View key={index} style={styles.item}>
+                <Text>{movie.name}</Text>
+              </View>
             ))}
           </View>
         </ScrollView>
       </View>
       <View style={styles.footer}>
-        <Buttons title="Continue" />
+        <Buttons title="Continue" onPress={getMovies} />
+        <Button title="Continue" onPress={getMovies} />
       </View>
     </>
   );

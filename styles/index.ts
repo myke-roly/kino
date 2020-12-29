@@ -5,7 +5,7 @@ export const stylesGlobal = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#fff',
+    backgroundColor: '#f8f8f8',
     padding: 30,
   },
   titleForm: {
@@ -31,5 +31,16 @@ export const stylesGlobal = StyleSheet.create({
     shadowRadius: 7.5,
 
     elevation: 12,
+  },
+  shadow: {
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 12,
+    },
+    shadowOpacity: 0.37,
+    shadowRadius: 7.5,
+
+    elevation: 1,
   },
 });

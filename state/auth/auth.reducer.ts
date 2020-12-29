@@ -1,4 +1,5 @@
-import { AuthActionsTypes, AuthI, initialState, TYPES } from './auth.types';
+import { AuthActionsTypes, AuthI, TYPES } from './auth.types';
+import { initialState } from '../types';
 
 const initialStateAuth = {
   auth: initialState,
@@ -63,7 +64,7 @@ const reducer = (state = initialStateAuth, action: AuthActionsTypes): AuthI => {
       };
 
     default:
-      return state;
+      return { ...state };
   }
 };
 

@@ -1,3 +1,5 @@
+import { InitialStateI } from '../types';
+
 export enum TYPES {
   SIGNUP_REQUEST = 'SIGNUP_REQUEST',
   SIGNUP_SUCCESS = 'SIGNUP_SUCCESS',
@@ -9,19 +11,6 @@ export enum TYPES {
 
   LOGOUT = 'LOGOUT',
 }
-
-export interface InitialStateI {
-  loading: boolean;
-  error: null | string;
-  data: null | {} | [];
-}
-
-export const initialState: InitialStateI = {
-  loading: false,
-  error: null,
-  data: null,
-};
-
 export interface AuthI {
   auth: InitialStateI;
   signin: InitialStateI;

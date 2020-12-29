@@ -4,7 +4,7 @@ import { View, Text, StyleSheet } from 'react-native';
 const HelloReactNative = () => {
   return (
     <View style={styles.user}>
-      <Text style={styles.title}>Mike</Text>
+      <Text style={styles.title}>USER Mike</Text>
     </View>
   );
 };

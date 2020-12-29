@@ -15,8 +15,8 @@ interface PropsI {
 }
 
 export const Signin: FC<PropsI> = ({ navigation }) => {
-  const dispatch = useDispatch();
-  const { data, loading, error } = useSelector((state) => signinSelector(state));
+  const dispatch = useDispatch<any>();
+  const { data, loading } = useSelector((state) => signinSelector(state));
 
   const { token, getToken, saveToken } = useAuthentication();
   console.log(token);

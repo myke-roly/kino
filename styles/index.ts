@@ -3,10 +3,17 @@ import { StyleSheet } from 'react-native';
 export const stylesGlobal = StyleSheet.create({
   container: {
     flex: 1,
+    backgroundColor: '#f8f8f8',
+    paddingHorizontal: 20,
+    paddingVertical: 50,
+  },
+  containerCenter: {
+    flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: '#f8f8f8',
-    padding: 30,
+    paddingHorizontal: 20,
+    paddingVertical: 50,
   },
   titleForm: {
     fontSize: 30,

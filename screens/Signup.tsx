@@ -62,7 +62,7 @@ const Signup: FC<PropsI> = ({ navigation }) => {
   return (
     <>
       {loading && <Loading />}
-      <View style={stylesGlobal.container}>
+      <View style={stylesGlobal.containerCenter}>
         <Text style={stylesGlobal.titleForm}>Sign Up</Text>
         <SocialButton icon="google" onPres={() => console.log('login with google')}>
           Sign up with Google

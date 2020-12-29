@@ -50,7 +50,7 @@ const Preference: FC<PropsI> = ({ navigation }) => {
 
   return (
     <>
-      <View style={stylesGlobal.container}>
+      <View style={styles.main}>
         <ScrollView showsVerticalScrollIndicator={false}>
           <Text style={styles.title}>Pick your favorite movies</Text>
           <View style={styles.list}>
@@ -61,10 +61,10 @@ const Preference: FC<PropsI> = ({ navigation }) => {
             ))}
           </View>
         </ScrollView>
-      </View>
-      <View style={styles.footer}>
-        <Buttons title="Continue" onPress={getMovies} />
-        <Button title="Continue" onPress={getMovies} />
+        <View style={styles.footer}>
+          <Buttons title="Continue" onPress={() => navigation.navigate('Layout')} />
+          <Button title="Continue" onPress={() => navigation.navigate('Layout')} />
+        </View>
       </View>
     </>
   );
@@ -73,6 +73,10 @@ const Preference: FC<PropsI> = ({ navigation }) => {
 export default Preference;
 
 const styles = StyleSheet.create({
+  main: {
+    flex: 1,
+    marginTop: 10,
+  },
   title: {
     textAlign: 'center',
     fontSize: 20,

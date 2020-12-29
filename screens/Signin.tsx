@@ -41,7 +41,7 @@ export const Signin: FC<PropsI> = ({ navigation }) => {
   return (
     <>
       {loading && <Loading />}
-      <View style={stylesGlobal.container}>
+      <View style={stylesGlobal.containerCenter}>
         <Text style={stylesGlobal.titleForm}>Sign In</Text>
         <SocialButton
           icon="google"

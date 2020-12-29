@@ -61,7 +61,6 @@ const styles = StyleSheet.create({
   },
   title: {
     marginBottom: 40,
-    marginTop: 20,
     fontSize: 24,
   },
   titleOption: {

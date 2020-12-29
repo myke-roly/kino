@@ -1,18 +1,19 @@
 import React, { FC, useRef } from 'react';
 import { Animated, ScrollView, StyleSheet, Text, useWindowDimensions, View, Image } from 'react-native';
-import Config from 'react-native-config';
-import { movies } from '../screens/Preference';
 import Subtitle from './Subtitle';
 
 interface PropsI {
+  items: any[];
   subtitle: string;
 }
 
-const Slider: FC<PropsI> = ({ subtitle }) => {
+const Slider: FC<PropsI> = ({ subtitle, items }) => {
   const scrollX = useRef(new Animated.Value(0)).current;
   const { width: windowScreen } = useWindowDimensions();
 
-  return (
+  console.log(items);
+
+  return items ? (
     <View>
       <Subtitle subtitle={subtitle} />
       <ScrollView
@@ -30,19 +31,15 @@ const Slider: FC<PropsI> = ({ subtitle }) => {
         ])}
         scrollEventThrottle={1}
       >
-        {movies.map((movie, index) => (
+        {items.map((movie: any, index: number) => (
           <View key={index} style={[styles.item, { width: windowScreen / 2 - 20 }]}>
-            <Image
-              style={styles.img}
-              source={{
-                uri:
-                  'https://ca-times.brightspotcdn.com/dims4/default/364fef9/2147483647/strip/true/crop/962x648+0+0/resize/840x566!/quality/90/?url=https%3A%2F%2Fcalifornia-times-brightspot.s3.amazonaws.com%2Ffa%2F8d%2F2142384341ddb873ff8af885c97c%2Flisto-para-la-nueva-temporada-1219614.JPG',
-              }}
-            />
+            <Image style={styles.img} source={{ uri: `https://image.tmdb.org/t/p/original/${movie.poster_path}` }} />
           </View>
         ))}
       </ScrollView>
     </View>
+  ) : (
+    <Text>No hay Entradas</Text>
   );
 };
 

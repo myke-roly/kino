@@ -16,7 +16,7 @@ interface PropsI {
 
 export const Signin: FC<PropsI> = ({ navigation }) => {
   const dispatch = useDispatch<any>();
-  const { data, loading } = useSelector((state) => signinSelector(state));
+  const { data, isLoading } = useSelector((state) => signinSelector(state));
 
   const { token, getToken, saveToken } = useAuthentication();
   console.log(token);
@@ -40,7 +40,7 @@ export const Signin: FC<PropsI> = ({ navigation }) => {
 
   return (
     <>
-      {loading && <Loading />}
+      {isLoading && <Loading />}
       <View style={stylesGlobal.containerCenter}>
         <Text style={stylesGlobal.titleForm}>Sign In</Text>
         <SocialButton

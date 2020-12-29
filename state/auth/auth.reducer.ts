@@ -13,7 +13,7 @@ const reducer = (state = initialStateAuth, action: AuthActionsTypes): AuthI => {
         ...state,
         auth: {
           data: null,
-          loading: true,
+          isLoading: true,
           error: null,
         },
       };
@@ -22,7 +22,7 @@ const reducer = (state = initialStateAuth, action: AuthActionsTypes): AuthI => {
         ...state,
         auth: {
           data: action.payload.data,
-          loading: false,
+          isLoading: false,
           error: null,
         },
       };
@@ -31,7 +31,7 @@ const reducer = (state = initialStateAuth, action: AuthActionsTypes): AuthI => {
         ...state,
         auth: {
           data: null,
-          loading: false,
+          isLoading: false,
           error: 'ERROR EN LA PETICION',
         },
       };
@@ -40,7 +40,7 @@ const reducer = (state = initialStateAuth, action: AuthActionsTypes): AuthI => {
         ...state,
         signin: {
           data: null,
-          loading: true,
+          isLoading: true,
           error: null,
         },
       };
@@ -49,7 +49,7 @@ const reducer = (state = initialStateAuth, action: AuthActionsTypes): AuthI => {
         ...state,
         signin: {
           data: action.payload.data,
-          loading: false,
+          isLoading: false,
           error: null,
         },
       };
@@ -58,7 +58,7 @@ const reducer = (state = initialStateAuth, action: AuthActionsTypes): AuthI => {
         ...state,
         signin: {
           data: null,
-          loading: false,
+          isLoading: false,
           error: 'ERROR EN LA PETICION',
         },
       };

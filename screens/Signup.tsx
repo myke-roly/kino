@@ -25,7 +25,7 @@ const Signup: FC<PropsI> = ({ navigation }) => {
   console.log(token);
 
   const dispatch = useDispatch();
-  const { data, error, loading } = useSelector((state) => signupSelector(state));
+  const { data, error, isLoading } = useSelector((state) => signupSelector(state));
 
   function CreateTermsModal() {
     return Alert.alert('Termns & Condition');
@@ -44,7 +44,7 @@ const Signup: FC<PropsI> = ({ navigation }) => {
     setPassword('');
   }
 
-  console.log(data, error, loading);
+  console.log(data, error, isLoading);
 
   function isEmail(): boolean {
     return email.includes('@');
@@ -61,7 +61,7 @@ const Signup: FC<PropsI> = ({ navigation }) => {
 
   return (
     <>
-      {loading && <Loading />}
+      {isLoading && <Loading />}
       <View style={stylesGlobal.containerCenter}>
         <Text style={stylesGlobal.titleForm}>Sign Up</Text>
         <SocialButton icon="google" onPres={() => console.log('login with google')}>

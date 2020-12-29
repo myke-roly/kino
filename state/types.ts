@@ -1,11 +1,11 @@
 export interface InitialStateI {
-  loading: boolean;
+  isLoading: boolean;
   error: null | string;
   data: null | {} | [];
 }
 
 export const initialState: InitialStateI = {
-  loading: false,
+  isLoading: false,
   error: null,
   data: null,
 };

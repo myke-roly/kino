@@ -1,13 +1,13 @@
-import React, { FC } from 'react';
-import { Button, StyleSheet, Text, View } from 'react-native';
+import React, { FC, useEffect } from 'react';
+import { Button, StyleSheet, Text, View, Image } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
 import Buttons from '../components/Buttons';
-import { stylesGlobal } from '../styles';
 
-import httpModules from '../api';
-import { Methods, TYPES as typeRequest } from '../api/utils';
 import { NavigatorProps } from '../types';
-
+import { useDispatch, useSelector } from 'react-redux';
+import { moviesSelector } from '../state/movies/movies.selector';
+import { TYPES } from '../state/movies/movies.types';
+import Loading from '../components/Loader';
 interface PropsI {
   navigation: NavigatorProps;
 }
@@ -27,42 +27,38 @@ export const movies: any[] = [
   { name: 'mike' },
 ];
 const Preference: FC<PropsI> = ({ navigation }) => {
-  async function getMovies(): Promise<any> {
-    navigation.navigate('Layout');
-    const options = {
-      url: 'discover/movie',
-      method: Methods.get,
-      type: typeRequest.json,
-      movies: true,
-      params: 'page=1',
-    };
+  const dispatch = useDispatch();
+  const { data, isLoading } = useSelector((state) => moviesSelector(state));
+  console.log(data, isLoading);
 
-    try {
-      const data = await httpModules.get(options);
-      console.log(data);
-      return data;
-    } catch (error) {
-      console.error(error);
-      return error.message;
-    }
+  function next() {
+    // navigation.navigate('Layout');
   }
+
+  useEffect(() => {
+    dispatch({ type: TYPES.GET_MOVIES_REQUEST });
+  }, []);
 
   return (
     <>
+      {isLoading && <Loading />}
       <View style={styles.main}>
         <ScrollView showsVerticalScrollIndicator={false}>
           <Text style={styles.title}>Pick your favorite movies</Text>
           <View style={styles.list}>
-            {movies.map((movie, index) => (
+            {data?.results.map((movie: any, index: number) => (
               <View key={index} style={styles.item}>
-                <Text>{movie.name}</Text>
+                <Image
+                  source={{ uri: `https://image.tmdb.org/t/p/original/${movie.poster_path}`, width: 150, height: 150 }}
+                />
+                {/* <Text>{movie.title}</Text> */}
               </View>
             ))}
           </View>
         </ScrollView>
         <View style={styles.footer}>
           <Buttons title="Continue" onPress={() => navigation.navigate('Layout')} />
-          <Button title="Continue" onPress={() => navigation.navigate('Layout')} />
+          <Button title="Continue" onPress={next} />
         </View>
       </View>
     </>
@@ -94,9 +90,6 @@ const styles = StyleSheet.create({
     margin: 10,
     width: 150,
     height: 150,
-    borderColor: '#333',
-    borderWidth: 2,
-    padding: 10,
   },
   footer: {
     backgroundColor: 'white',

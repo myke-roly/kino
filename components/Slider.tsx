@@ -1,5 +1,6 @@
 import React, { FC, useRef } from 'react';
-import { Animated, ScrollView, StyleSheet, Text, useWindowDimensions, View } from 'react-native';
+import { Animated, ScrollView, StyleSheet, Text, useWindowDimensions, View, Image } from 'react-native';
+import Config from 'react-native-config';
 import { movies } from '../screens/Preference';
 import Subtitle from './Subtitle';
 
@@ -15,9 +16,9 @@ const Slider: FC<PropsI> = ({ subtitle }) => {
     <View>
       <Subtitle subtitle={subtitle} />
       <ScrollView
-        horizontal={false}
+        horizontal={true}
         pagingEnabled
-        showsHorizontalScrollIndicator
+        showsHorizontalScrollIndicator={false}
         onScroll={Animated.event([
           {
             nativeEvent: {
@@ -27,14 +28,19 @@ const Slider: FC<PropsI> = ({ subtitle }) => {
             },
           },
         ])}
+        scrollEventThrottle={1}
       >
-        <View style={styles.list}>
-          {movies.map((movie, index) => (
-            <View key={index} style={styles.item}>
-              <Text>{movie.name}</Text>
-            </View>
-          ))}
-        </View>
+        {movies.map((movie, index) => (
+          <View key={index} style={[styles.item, { width: windowScreen / 2 - 20 }]}>
+            <Image
+              style={styles.img}
+              source={{
+                uri:
+                  'https://ca-times.brightspotcdn.com/dims4/default/364fef9/2147483647/strip/true/crop/962x648+0+0/resize/840x566!/quality/90/?url=https%3A%2F%2Fcalifornia-times-brightspot.s3.amazonaws.com%2Ffa%2F8d%2F2142384341ddb873ff8af885c97c%2Flisto-para-la-nueva-temporada-1219614.JPG',
+              }}
+            />
+          </View>
+        ))}
       </ScrollView>
     </View>
   );
@@ -43,18 +49,13 @@ const Slider: FC<PropsI> = ({ subtitle }) => {
 export default Slider;
 
 const styles = StyleSheet.create({
-  list: {
-    flex: 1,
-    flexDirection: 'row',
-    // flexWrap: 'wrap',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
   item: {
-    margin: 10,
-    width: 150,
-    height: 150,
-    borderColor: '#333',
-    borderWidth: 2,
+    marginVertical: 20,
+    paddingHorizontal: 10,
+  },
+  img: {
+    width: '100%',
+    height: 200,
+    borderRadius: 10,
   },
 });

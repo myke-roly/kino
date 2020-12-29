@@ -5,6 +5,7 @@ import Subtitle from '../components/Subtitle';
 import Title from '../components/Title';
 import { stylesGlobal } from '../styles';
 import { movies } from './Preference';
+import Slider from '../components/Slider';
 
 const Search = () => {
   const [query, setQuery] = useState<string>('');
@@ -14,7 +15,7 @@ const Search = () => {
   }
 
   return (
-    <View style={stylesGlobal.container}>
+    <ScrollView style={stylesGlobal.container}>
       <Title title="Search" />
       <View style={styles.wrapperInput}>
         <TextInput
@@ -25,7 +26,12 @@ const Search = () => {
         />
         <Feather size={18} name="search" color="#ccc" />
       </View>
-    </View>
+      <View style={{ marginBottom: 50 }}>
+        <Slider subtitle="Trending" />
+        <Slider subtitle="Populars" />
+        <Slider subtitle="Top" />
+      </View>
+    </ScrollView>
   );
 };
 

@@ -12,14 +12,20 @@ export enum TYPES {
   SEARCH_MOVIES_REQUEST = 'SEARCH_MOVIES_REQUEST',
   SEARCH_MOVIES_SUCCESS = 'SEARCH_MOVIES_SUCCESS',
   SEARCH_MOVIES_FAILED = 'SEARCH_MOVIES_FAILED',
+
+  SAVE_MOVIE_REQUEST = 'SAVE_MOVIE_REQUEST',
+  SAVE_MOVIE_SUCCESS = 'SAVE_MOVIE_SUCCESS',
+  SAVE_MOVIE_FAILED = 'SAVE_MOVIE_FAILED',
 }
 
 export interface MoviesI {
   getMovies: InitialStateI;
   getTrendingMovies: InitialStateI;
   searchMovies: InitialStateI;
+  saveMovie: InitialStateI;
 }
 
+// getActions
 interface GetMoviesActionRequest {
   type: typeof TYPES.GET_MOVIES_REQUEST | typeof TYPES.GET_TRENDING_MOVIES_REQUEST | typeof TYPES.SEARCH_MOVIES_REQUEST;
 }
@@ -33,4 +39,24 @@ interface GetMoviesActionFailed {
   type: typeof TYPES.GET_MOVIES_FAILED | typeof TYPES.GET_TRENDING_MOVIES_FAILED | typeof TYPES.SEARCH_MOVIES_FAILED;
 }
 
-export type GetMoviesTypes = GetMoviesActionRequest | GetMoviesActionSucess | GetMoviesActionFailed;
+// postActions
+interface PostMoviesActionRequest {
+  type: typeof TYPES.SAVE_MOVIE_REQUEST;
+}
+
+interface PostMoviesActionSucess {
+  type: typeof TYPES.SAVE_MOVIE_SUCCESS;
+  payload: [] | null;
+}
+
+interface PostMoviesActionFailed {
+  type: typeof TYPES.SAVE_MOVIE_FAILED;
+}
+
+export type MoviesTypes =
+  | GetMoviesActionRequest
+  | GetMoviesActionSucess
+  | GetMoviesActionFailed
+  | PostMoviesActionRequest
+  | PostMoviesActionSucess
+  | PostMoviesActionFailed;

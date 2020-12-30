@@ -1,10 +1,11 @@
 import { initialState, InitialStateI } from '../types';
-import { GetMoviesTypes, MoviesI, TYPES } from './movies.types';
+import { MoviesI, MoviesTypes, TYPES } from './movies.types';
 
 const initialStateAuth = {
   getMovies: initialState,
   getTrendingMovies: initialState,
   searchMovies: initialState,
+  saveMovie: initialState,
 };
 
 const request = (): InitialStateI => ({
@@ -19,7 +20,7 @@ const failed = (error: string): InitialStateI => ({
   error: error,
 });
 
-const reducer = (state = initialStateAuth, action: GetMoviesTypes): MoviesI => {
+const reducer = (state = initialStateAuth, action: MoviesTypes): MoviesI => {
   switch (action.type) {
     case TYPES.GET_MOVIES_REQUEST:
       return {
@@ -77,6 +78,25 @@ const reducer = (state = initialStateAuth, action: GetMoviesTypes): MoviesI => {
       return {
         ...state,
         searchMovies: failed('error en la peticion'),
+      };
+    case TYPES.SAVE_MOVIE_REQUEST:
+      return {
+        ...state,
+        saveMovie: request(),
+      };
+    case TYPES.SAVE_MOVIE_SUCCESS:
+      return {
+        ...state,
+        saveMovie: {
+          data: action.payload,
+          isLoading: false,
+          error: null,
+        },
+      };
+    case TYPES.SAVE_MOVIE_FAILED:
+      return {
+        ...state,
+        saveMovie: failed('error en la peticion'),
       };
     default:
       return state;

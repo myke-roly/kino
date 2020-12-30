@@ -57,3 +57,20 @@ export async function searchMovies(query: string): Promise<any> {
     return error.message;
   }
 }
+
+export async function saveMovie(movieId: string | number): Promise<any> {
+  const options = {
+    url: 'movies/save',
+    method: Methods.post,
+    payload: movieId,
+    type: typeRequest.json,
+  };
+
+  try {
+    const data = await httpModules.post(options);
+    return data;
+  } catch (error) {
+    console.error(error);
+    return error.message;
+  }
+}

@@ -4,6 +4,7 @@ import { TYPES } from './movies.types';
 
 interface PauloadI {
   page: number;
+  movie: string | number;
 }
 
 function* watcherGetMovies(payload: PauloadI) {
@@ -40,10 +41,21 @@ function* watcherSearchMovies(payload: PayloadI) {
   }
 }
 
+function* watcherSaveMovie(payload: PauloadI) {
+  try {
+    const data = yield call(service.saveMovie, payload.movie);
+    yield put({ type: TYPES.SAVE_MOVIE_SUCCESS, payload: data.data });
+  } catch (error) {
+    console.error(error);
+    yield put({ type: TYPES.SAVE_MOVIE_FAILED });
+  }
+}
+
 function* moviesSaga() {
   yield takeLatest<any>(TYPES.GET_MOVIES_REQUEST, watcherGetMovies);
   yield takeLatest<any>(TYPES.GET_TRENDING_MOVIES_REQUEST, watcherGetTrendingMovies);
   yield takeLatest<any>(TYPES.SEARCH_MOVIES_REQUEST, watcherSearchMovies);
+  yield takeLatest<any>(TYPES.SAVE_MOVIE_REQUEST, watcherSaveMovie);
 }
 
 export default moviesSaga;

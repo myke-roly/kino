@@ -26,7 +26,7 @@ const Search = () => {
     if (!discoverMovies) {
       dispatch({ type: TYPES.GET_MOVIES_REQUEST, page: 1 });
     }
-  }, []);
+  }, [dispatch]);
 
   return (
     <ScrollView style={stylesGlobal.container}>

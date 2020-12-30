@@ -64,6 +64,10 @@ const Home = () => {
     },
   });
 
+  const saveCards = (idMovie: string | number) => {
+    dispatch({ type: TYPES.SAVE_MOVIE_REQUEST, movie: idMovie });
+  };
+
   const removeTopCard = useCallback(() => {
     setCards((state) => state.slice(1));
     swipe.setValue({ x: 0, y: 0 });

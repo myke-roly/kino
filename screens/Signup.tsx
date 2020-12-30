@@ -22,7 +22,6 @@ const Signup: FC<PropsI> = ({ navigation }) => {
   const [username, setUsername] = useState<string>('');
 
   const { token, saveToken, getToken } = useAuthentication();
-  console.log(token);
 
   const dispatch = useDispatch();
   const { data, error, isLoading } = useSelector((state) => signupSelector(state));
@@ -43,8 +42,6 @@ const Signup: FC<PropsI> = ({ navigation }) => {
     setEmail('');
     setPassword('');
   }
-
-  console.log(data, error, isLoading);
 
   function isEmail(): boolean {
     return email.includes('@');

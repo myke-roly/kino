@@ -33,7 +33,6 @@ export interface FetchModuleI {
 
 // export const fetchModule: FetchModuleI = async(url, token = null, method = Methods.get, payload = null, type = TYPES.default): Promise<any> => {
 export const fetchModule = async (options: FetchModuleI): Promise<any> => {
-  console.log(options);
   const { url, token, method, payload, type, movies, params } = options;
 
   const url_base = getFinalUrl(url, movies, params);

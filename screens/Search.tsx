@@ -1,10 +1,8 @@
 import React, { useEffect, useState } from 'react';
-import { StyleSheet, Text, View, TextInput, FlatList, LayoutAnimation, ScrollView, Animated } from 'react-native';
+import { StyleSheet, View, TextInput, ScrollView } from 'react-native';
 import { Feather } from '@expo/vector-icons';
-import Subtitle from '../components/Subtitle';
 import Title from '../components/Title';
 import { stylesGlobal } from '../styles';
-import { movies } from './Preference';
 import Slider from '../components/Slider';
 import { useDispatch, useSelector } from 'react-redux';
 import { moviesSelector, trendingMoviesSelector } from '../state/movies/movies.selector';
@@ -26,7 +24,7 @@ const Search = () => {
       dispatch({ type: TYPES.GET_TRENDING_MOVIES_REQUEST });
     }
     if (!discoverMovies) {
-      dispatch({ type: TYPES.GET_MOVIES_REQUEST });
+      dispatch({ type: TYPES.GET_MOVIES_REQUEST, page: 1 });
     }
   }, []);
 
@@ -49,7 +47,6 @@ const Search = () => {
           <>
             <Slider items={trendigMovies?.results} subtitle="Trending" />
             <Slider items={discoverMovies?.results} subtitle="Discover" />
-            {/* <Slider items={discoverMovies?.results} subtitle="Top" /> */}
           </>
         )}
       </View>

@@ -4,7 +4,6 @@ import { UserSigninI, UserSignupI } from '../../types';
 import { AuthActionsTypes, TYPES } from './auth.types';
 
 export async function sigup(user: UserSignupI): Promise<any> {
-  console.log(user);
   const options = {
     url: 'auth/signup',
     method: Methods.post,
@@ -14,7 +13,6 @@ export async function sigup(user: UserSignupI): Promise<any> {
 
   try {
     const data = await httpModules.post(options);
-    // console.log(data);
     return data;
   } catch (error) {
     console.error(error);

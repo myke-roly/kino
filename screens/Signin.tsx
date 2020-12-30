@@ -19,7 +19,6 @@ export const Signin: FC<PropsI> = ({ navigation }) => {
   const { data, isLoading } = useSelector((state) => signinSelector(state));
 
   const { token, getToken, saveToken } = useAuthentication();
-  console.log(token);
 
   function sendForm() {
     const user = {

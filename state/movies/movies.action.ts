@@ -13,7 +13,6 @@ export async function getMovies(page: number): Promise<any> {
 
   try {
     const data = await httpModules.get(options);
-    // console.log(data);
     return data;
   } catch (error) {
     console.error(error);
@@ -33,7 +32,6 @@ export async function getTrendingMovies(): Promise<any> {
 
   try {
     const data = await httpModules.get(options);
-    // console.log(data);
     return data;
   } catch (error) {
     console.error(error);
@@ -53,7 +51,6 @@ export async function searchMovies(query: string): Promise<any> {
 
   try {
     const data = await httpModules.get(options);
-    // console.log(data);
     return data;
   } catch (error) {
     console.error(error);

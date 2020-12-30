@@ -12,24 +12,9 @@ interface PropsI {
   navigation: NavigatorProps;
 }
 
-export const movies: any[] = [
-  { name: 'mike' },
-  { name: 'mike' },
-  { name: 'mike' },
-  { name: 'mike' },
-  { name: 'mike' },
-  { name: 'mike' },
-  { name: 'mike' },
-  { name: 'mike' },
-  { name: 'mike' },
-  { name: 'mike' },
-  { name: 'mike' },
-  { name: 'mike' },
-];
 const Preference: FC<PropsI> = ({ navigation }) => {
   const dispatch = useDispatch();
   const { data, isLoading } = useSelector((state) => moviesSelector(state));
-  console.log(data, isLoading);
 
   function next() {
     navigation.navigate('Layout');

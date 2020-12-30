@@ -11,8 +11,6 @@ const Slider: FC<PropsI> = ({ subtitle, items }) => {
   const scrollX = useRef(new Animated.Value(0)).current;
   const { width: windowScreen } = useWindowDimensions();
 
-  console.log(items);
-
   return items ? (
     <View>
       <Subtitle subtitle={subtitle} />

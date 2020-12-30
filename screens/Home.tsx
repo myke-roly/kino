@@ -39,6 +39,7 @@ const Home = () => {
     },
     onPanResponderRelease: (_, { dy, dx }) => {
       const direction = Math.sign(dx);
+      console.log(direction);
       const isActionActive = Math.abs(dx) > ACTION_OFFSET;
 
       if (isActionActive) {
@@ -124,10 +125,6 @@ const Home = () => {
 export default Home;
 
 const styles = StyleSheet.create({
-  container: {
-    position: 'relative',
-    height: '80%',
-  },
   main: {
     alignItems: 'flex-start',
     justifyContent: 'flex-start',

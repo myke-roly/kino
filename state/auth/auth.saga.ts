@@ -10,7 +10,6 @@ interface Payload {
 function* watcherSignup(payload: Payload) {
   try {
     const data = yield call(service.sigup, payload.user);
-    console.log(data);
     yield put({ type: TYPES.SIGNUP_SUCCESS, payload: data });
   } catch (error) {
     console.error(error);
@@ -21,7 +20,6 @@ function* watcherSignup(payload: Payload) {
 function* watcherSignin(payload: Payload) {
   try {
     const data = yield call(service.sigin, payload.user);
-    console.log(data);
     yield put({ type: TYPES.SIGNIN_SUCCESS, payload: data });
   } catch (error) {
     console.error(error);

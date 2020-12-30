@@ -9,7 +9,6 @@ interface PauloadI {
 function* watcherGetMovies(payload: PauloadI) {
   try {
     const data = yield call(service.getMovies, payload.page);
-    console.log(data);
     yield put({ type: TYPES.GET_MOVIES_SUCCESS, payload: data.data });
   } catch (error) {
     console.error(error);
@@ -20,7 +19,6 @@ function* watcherGetMovies(payload: PauloadI) {
 function* watcherGetTrendingMovies() {
   try {
     const data = yield call(service.getTrendingMovies);
-    console.log(data);
     yield put({ type: TYPES.GET_TRENDING_MOVIES_SUCCESS, payload: data.data });
   } catch (error) {
     console.error(error);
@@ -35,7 +33,6 @@ interface PayloadI {
 function* watcherSearchMovies(payload: PayloadI) {
   try {
     const data = yield call(service.searchMovies, payload.query);
-    console.log(data);
     yield put({ type: TYPES.SEARCH_MOVIES_SUCCESS, payload: data.data });
   } catch (error) {
     console.error(error);

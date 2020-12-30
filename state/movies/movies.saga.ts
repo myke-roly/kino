@@ -2,9 +2,13 @@ import { call, put, takeLatest } from 'redux-saga/effects';
 import * as service from './movies.action';
 import { TYPES } from './movies.types';
 
-function* watcherGetMovies() {
+interface PauloadI {
+  page: number;
+}
+
+function* watcherGetMovies(payload: PauloadI) {
   try {
-    const data = yield call(service.getMovies);
+    const data = yield call(service.getMovies, payload.page);
     console.log(data);
     yield put({ type: TYPES.GET_MOVIES_SUCCESS, payload: data.data });
   } catch (error) {

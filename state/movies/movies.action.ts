@@ -1,14 +1,14 @@
 import httpModules from '../../api';
 import { Methods, TYPES as typeRequest } from '../../api/utils';
 
-export async function getMovies(): Promise<any> {
+export async function getMovies(page: number): Promise<any> {
   const options = {
     url: 'discover/movie',
     method: Methods.get,
     payload: null,
     type: typeRequest.json,
     movies: true,
-    params: 'page=1',
+    params: `page=${page}`,
   };
 
   try {

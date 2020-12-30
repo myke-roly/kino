@@ -9,11 +9,12 @@ import Slider from '../components/Slider';
 import { useDispatch, useSelector } from 'react-redux';
 import { moviesSelector, trendingMoviesSelector } from '../state/movies/movies.selector';
 import { TYPES } from '../state/movies/movies.types';
+import Loading from '../components/Loader';
 
 const Search = () => {
   const [query, setQuery] = useState<string>('');
   const dispatch = useDispatch();
-  const { data: trendigMovies } = useSelector((state) => trendingMoviesSelector(state));
+  const { data: trendigMovies, isLoading } = useSelector((state) => trendingMoviesSelector(state));
   const { data: discoverMovies } = useSelector((state) => moviesSelector(state));
 
   function search() {
@@ -42,9 +43,15 @@ const Search = () => {
         <Feather size={18} name="search" color="#ccc" />
       </View>
       <View style={{ marginVertical: 30 }}>
-        <Slider items={trendigMovies?.results} subtitle="Trending" />
-        <Slider items={discoverMovies?.results} subtitle="Discover" />
-        {/* <Slider items={discoverMovies?.results} subtitle="Top" /> */}
+        {isLoading ? (
+          <Loading />
+        ) : (
+          <>
+            <Slider items={trendigMovies?.results} subtitle="Trending" />
+            <Slider items={discoverMovies?.results} subtitle="Discover" />
+            {/* <Slider items={discoverMovies?.results} subtitle="Top" /> */}
+          </>
+        )}
       </View>
     </ScrollView>
   );

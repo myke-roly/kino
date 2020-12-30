@@ -32,7 +32,7 @@ const Preference: FC<PropsI> = ({ navigation }) => {
   console.log(data, isLoading);
 
   function next() {
-    // navigation.navigate('Layout');
+    navigation.navigate('Layout');
   }
 
   useEffect(() => {
@@ -57,7 +57,7 @@ const Preference: FC<PropsI> = ({ navigation }) => {
           </View>
         </ScrollView>
         <View style={styles.footer}>
-          <Buttons title="Continue" onPress={() => navigation.navigate('Layout')} />
+          <Buttons title="Continue" onPress={next} />
           <Button title="Continue" onPress={next} />
         </View>
       </View>

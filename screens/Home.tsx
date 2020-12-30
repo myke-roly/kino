@@ -1,60 +1,133 @@
-import { Feather } from '@expo/vector-icons';
-import React, { useState } from 'react';
-import { StyleSheet, Text, View, Image } from 'react-native';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
+import { StyleSheet, Text, View, Animated, PanResponder } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
+import { Feather } from '@expo/vector-icons';
 import { stylesGlobal } from '../styles';
+import { ACTION_OFFSET, CARD } from '../constants/Layout';
+
+import { useDispatch, useSelector } from 'react-redux';
+import { moviesSelector } from '../state/movies/movies.selector';
+import { TYPES } from '../state/movies/movies.types';
+
+import Loading from '../components/Loader';
+import Cards from '../components/Cards';
 
 const Home = () => {
+  const [page, setPage] = useState<number>(1);
   const [option, setOption] = useState<boolean>(true);
   function toggleOptions() {
     setOption((state) => !state);
   }
+
+  const dispatch = useDispatch();
+  const { data: movies, isLoading } = useSelector((state) => moviesSelector(state));
+
+  useEffect(() => {
+    dispatch({ type: TYPES.GET_MOVIES_REQUEST, page });
+  }, [dispatch, page]);
+
+  const [cards, setCards] = useState<any[]>(movies?.results);
+
+  const swipe = useRef(new Animated.ValueXY()).current;
+  const tiltSign = useRef(new Animated.Value(1)).current;
+
+  const panResponder = PanResponder.create({
+    onMoveShouldSetPanResponder: () => true,
+    onPanResponderMove: (_, { dx, dy, y0 }) => {
+      swipe.setValue({ x: dx, y: dy });
+      tiltSign.setValue(y0 > CARD.HEIGHT / 2 ? 1 : -1);
+    },
+    onPanResponderRelease: (_, { dy, dx }) => {
+      const direction = Math.sign(dx);
+      const isActionActive = Math.abs(dx) > ACTION_OFFSET;
+
+      if (isActionActive) {
+        Animated.timing(swipe, {
+          duration: 400,
+          toValue: {
+            x: direction * 500,
+            y: dy,
+          },
+          useNativeDriver: true,
+        }).start(removeTopCard);
+      } else {
+        Animated.spring(swipe, {
+          toValue: {
+            x: 0,
+            y: 0,
+          },
+          useNativeDriver: true,
+          friction: 4,
+        }).start();
+      }
+    },
+  });
+
+  const removeTopCard = useCallback(() => {
+    setCards((state) => state.slice(1));
+    swipe.setValue({ x: 0, y: 0 });
+  }, [swipe]);
+
+  const pressButtons = useCallback(
+    (direction) => {
+      Animated.timing(swipe, {
+        toValue: {
+          x: direction * 500,
+          y: 0,
+        },
+        useNativeDriver: true,
+      }).start(removeTopCard);
+    },
+    [swipe, removeTopCard]
+  );
+
+  useEffect(() => {
+    if (!cards.length) {
+      setPage((prevState) => prevState + 1);
+      setCards(movies?.results);
+    }
+  }, [cards.length, page]);
+
   return (
-    <View style={[stylesGlobal.container, styles.main]}>
-      <Text style={styles.title}>
-        <Text onPress={toggleOptions} style={[{ color: option ? '#000' : '#ddd' }, styles.titleOption]}>
-          Movies
-        </Text>{' '}
-        |{' '}
-        <Text onPress={toggleOptions} style={[{ color: !option ? '#000' : '#ddd' }, styles.titleOption]}>
-          TV Shows
+    <>
+      {isLoading && <Loading />}
+      <View style={[stylesGlobal.container, styles.main]}>
+        <Text style={styles.title}>
+          <Text onPress={toggleOptions} style={[{ color: option ? '#000' : '#ddd' }, styles.titleOption]}>
+            Movies
+          </Text>{' '}
+          |{' '}
+          <Text onPress={toggleOptions} style={[{ color: !option ? '#000' : '#ddd' }, styles.titleOption]}>
+            TV Shows
+          </Text>
         </Text>
-      </Text>
-      <View style={styles.card}>
-        <Image
-          style={styles.cardImg}
-          source={{
-            uri: 'https://www.edgehill.ac.uk/events/files/2020/09/Jumanji-The-Next-Level.jpg',
-          }}
-        />
-        <View style={styles.info}>
-          <Text style={styles.infoTitle}>Jumanji</Text>
-          <View style={styles.infoSubtitles}>
-            <Text style={styles.infoSubTitle}>Genre</Text>
-            <Text style={styles.infoSubTitle}>2019</Text>
-          </View>
+
+        {cards && <Cards items={cards} panResponder={panResponder} swipe={swipe} tiltSign={tiltSign} />}
+
+        <View style={styles.buttons}>
+          <TouchableOpacity onPress={() => pressButtons(-1)}>
+            <Text style={styles.btn}>
+              <Feather name="x" size={20} color="white" />
+            </Text>
+          </TouchableOpacity>
+          <TouchableOpacity onPress={() => pressButtons(1)}>
+            <Text style={styles.btn}>
+              <Feather name="check" size={20} color="white" />
+            </Text>
+          </TouchableOpacity>
         </View>
       </View>
-
-      <View style={styles.buttons}>
-        <TouchableOpacity>
-          <Text style={styles.btn}>
-            <Feather name="x" size={20} color="white" />
-          </Text>
-        </TouchableOpacity>
-        <TouchableOpacity>
-          <Text style={styles.btn}>
-            <Feather name="check" size={20} color="white" />
-          </Text>
-        </TouchableOpacity>
-      </View>
-    </View>
+    </>
   );
 };
 
 export default Home;
 
 const styles = StyleSheet.create({
+  container: {
+    position: 'relative',
+    height: '80%',
+  },
   main: {
     alignItems: 'flex-start',
     justifyContent: 'flex-start',
@@ -67,37 +140,7 @@ const styles = StyleSheet.create({
     fontSize: 24,
     fontWeight: 'bold',
   },
-  card: {
-    // ...stylesGlobal.shadow,
-    width: '100%',
-    backgroundColor: '#fff',
-    borderRadius: 10,
-  },
-  cardImg: {
-    width: '100%',
-    height: 400,
-    borderTopRightRadius: 10,
-    borderTopLeftRadius: 10,
-  },
-  info: {
-    paddingVertical: 15,
-    paddingHorizontal: 20,
-  },
-  infoSubtitles: {
-    marginVertical: 15,
-    flex: 1,
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-  },
-  infoTitle: {
-    fontSize: 20,
-    fontWeight: 'bold',
-  },
-  infoSubTitle: {
-    fontSize: 14,
-    color: '#acacac',
-  },
+
   buttons: {
     flex: 1,
     flexDirection: 'row',

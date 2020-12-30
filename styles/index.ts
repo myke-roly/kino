@@ -12,8 +12,8 @@ export const stylesGlobal = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: '#f8f8f8',
-    paddingHorizontal: 20,
-    paddingVertical: 50,
+    // paddingHorizontal: 20,
+    // paddingVertical: 50,
   },
   titleForm: {
     fontSize: 30,

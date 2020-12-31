@@ -46,6 +46,12 @@ export default {
               User: 'User',
             },
           },
+          Movie: {
+            screens: {
+              Movie: 'Movie',
+              movieId: 'movieId',
+            },
+          },
         },
       },
       // NotFound: '*',

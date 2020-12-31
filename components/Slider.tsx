@@ -1,13 +1,25 @@
 import React, { FC, useRef } from 'react';
-import { Animated, ScrollView, StyleSheet, Text, useWindowDimensions, View, Image } from 'react-native';
+import {
+  Animated,
+  ScrollView,
+  StyleSheet,
+  Text,
+  useWindowDimensions,
+  View,
+  Image,
+  TouchableHighlight,
+} from 'react-native';
+import { NavigatorProps } from '../types';
+
 import Subtitle from './Subtitle';
 
 interface PropsI {
   items: any[];
   subtitle: string;
+  navigation: NavigatorProps;
 }
 
-const Slider: FC<PropsI> = ({ subtitle, items }) => {
+const Slider: FC<PropsI> = ({ subtitle, items, navigation }) => {
   const scrollX = useRef(new Animated.Value(0)).current;
   const { width: windowScreen } = useWindowDimensions();
 
@@ -30,8 +42,10 @@ const Slider: FC<PropsI> = ({ subtitle, items }) => {
         scrollEventThrottle={1}
       >
         {items.map((movie: any, index: number) => (
-          <View key={index} style={[styles.item, { width: windowScreen / 2 - 20 }]}>
-            <Image style={styles.img} source={{ uri: `https://image.tmdb.org/t/p/original/${movie.poster_path}` }} />
+          <View style={[styles.item, { width: windowScreen / 2 - 20 }]}>
+            <TouchableHighlight onPress={() => navigation.navigate<any>('Movie', { movieId: movie.id })} key={index}>
+              <Image style={styles.img} source={{ uri: `https://image.tmdb.org/t/p/original/${movie.poster_path}` }} />
+            </TouchableHighlight>
           </View>
         ))}
       </ScrollView>

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { FC, useEffect, useState } from 'react';
 import { StyleSheet, View, TextInput, ScrollView } from 'react-native';
 import { Feather } from '@expo/vector-icons';
 import Title from '../components/Title';
@@ -8,8 +8,13 @@ import { useDispatch, useSelector } from 'react-redux';
 import { moviesSelector, trendingMoviesSelector } from '../state/movies/movies.selector';
 import { TYPES } from '../state/movies/movies.types';
 import Loading from '../components/Loader';
+import { NavigatorProps } from '../types';
 
-const Search = () => {
+interface PropsI {
+  navigation: NavigatorProps;
+}
+
+const Search: FC<PropsI> = ({ navigation }) => {
   const [query, setQuery] = useState<string>('');
   const dispatch = useDispatch();
   const { data: trendigMovies, isLoading } = useSelector((state) => trendingMoviesSelector(state));
@@ -45,8 +50,8 @@ const Search = () => {
           <Loading />
         ) : (
           <>
-            <Slider items={trendigMovies?.results} subtitle="Trending" />
-            <Slider items={discoverMovies?.results} subtitle="Discover" />
+            <Slider items={trendigMovies?.results} subtitle="Trending" navigation={navigation} />
+            <Slider items={discoverMovies?.results} subtitle="Discover" navigation={navigation} />
           </>
         )}
       </View>

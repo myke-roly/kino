@@ -61,8 +61,8 @@ export async function saveMovie(payload: PayloadI): Promise<any> {
 export async function getMovie(payload: PayloadI): Promise<any> {
   const options = {
     url: `movie/${payload.movieId}`,
-    method: Methods.post,
-    payload: null,
+    method: Methods.get,
+    movies: true,
     type: typeRequest.json,
   };
   return await httpModules.get(options);

@@ -94,8 +94,6 @@ const Home = () => {
     }
   }, [cards, page, movies]);
 
-  console.log(movies, cards);
-
   return (
     <>
       {isLoading && <Loading />}

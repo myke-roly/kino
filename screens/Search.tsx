@@ -35,28 +35,25 @@ const Search: FC<PropsI> = ({ navigation }) => {
   }, [dispatch]);
 
   return (
-    <ScrollView style={stylesGlobal.container}>
-      <Title title="Search" />
-      <View style={styles.wrapperInput}>
-        <TextInput
-          style={styles.input}
-          placeholderTextColor="#ccc"
-          placeholder="search"
-          onChangeText={(text) => setQuery(text)}
-        />
-        <Feather size={18} name="search" color="#ccc" />
-      </View>
-      <View style={{ marginVertical: 30 }}>
-        {isLoading ? (
-          <Loading />
-        ) : (
-          <>
-            <Slider items={trendigMovies?.results} subtitle="Trending" navigation={navigation} />
-            <Slider items={discoverMovies?.results} subtitle="Discover" navigation={navigation} />
-          </>
-        )}
-      </View>
-    </ScrollView>
+    <>
+      {isLoading && <Loading />}
+      <ScrollView style={stylesGlobal.container}>
+        <Title title="Search" />
+        <View style={styles.wrapperInput}>
+          <TextInput
+            style={styles.input}
+            placeholderTextColor="#ccc"
+            placeholder="search"
+            onChangeText={(text) => setQuery(text)}
+          />
+          <Feather size={18} name="search" color="#ccc" />
+        </View>
+        <View style={{ marginVertical: 30 }}>
+          <Slider items={trendigMovies?.results} subtitle="Trending" navigation={navigation} />
+          <Slider items={discoverMovies?.results} subtitle="Discover" navigation={navigation} />
+        </View>
+      </ScrollView>
+    </>
   );
 };
 

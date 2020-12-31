@@ -11,24 +11,50 @@ export default {
               Onboarding: 'Onboarding',
             },
           },
-          Login: {
+          Signup: {
             screens: {
-              Login: 'Login',
+              Signup: 'Signup',
             },
           },
-          TabOne: {
+          Signin: {
             screens: {
-              TabOneScreen: 'one',
+              Signin: 'Signin',
             },
           },
-          TabTwo: {
+          Preference: {
             screens: {
-              TabTwoScreen: 'two',
+              Preference: 'Preference',
+            },
+          },
+          Home: {
+            screens: {
+              Home: 'Home',
+            },
+          },
+          Search: {
+            screens: {
+              Search: 'Search',
+            },
+          },
+          Saved: {
+            screens: {
+              Saved: 'Saved',
+            },
+          },
+          User: {
+            screens: {
+              User: 'User',
+            },
+          },
+          Movie: {
+            screens: {
+              Movie: 'Movie',
+              movieId: 'movieId',
             },
           },
         },
       },
-      NotFound: '*',
+      // NotFound: '*',
     },
   },
 };

@@ -1,24 +1,42 @@
+import { StackNavigationProp } from '@react-navigation/stack';
+
 export type RootStackParamList = {
   Onboarding: undefined;
-  Login: undefined;
+  Signup: undefined;
+  Signin: undefined;
+  Preference: undefined;
   Layout: undefined;
   NotFound: undefined;
+  Movie: undefined;
 };
 
 export type BottomTabParamList = {
-  TabOne: undefined;
-  TabTwo: undefined;
-  TabUser: undefined;
+  Home: undefined;
+  Search: undefined;
+  Saved: undefined;
+  User: undefined;
 };
 
-export type TabOneParamList = {
-  TabOneScreen: undefined;
+export type HomeTabParamList = {
+  Home: undefined;
 };
 
-export type TabTwoParamList = {
-  TabTwoScreen: undefined;
+export type SearchTabParamList = {
+  Search: undefined;
+};
+
+export type SavedTabParamList = {
+  Saved: undefined;
 };
 
 export type UserTabParamList = {
-  TabUserScreen: undefined;
+  User: undefined;
 };
+
+export type NavigatorProps = StackNavigationProp<RootStackParamList>;
+
+export interface UserSigninI {
+  email: string;
+  password: string;
+}
+export interface UserSignupI extends UserSigninI {}

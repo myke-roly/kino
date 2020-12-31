@@ -5,11 +5,19 @@ import * as React from 'react';
 
 import Colors from '../constants/Colors';
 import useColorScheme from '../hooks/useColorScheme';
-import TabOneScreen from '../screens/TabOneScreen';
-import TabTwoScreen from '../screens/TabTwoScreen';
-import UserScreen from '../screens/UserScreen';
 
-import { BottomTabParamList, TabOneParamList, TabTwoParamList, UserTabParamList } from '../types';
+import Home from '../screens/Home';
+import Search from '../screens/Search';
+import Saved from '../screens/Saved';
+import User from '../screens/User';
+
+import {
+  BottomTabParamList,
+  HomeTabParamList,
+  SearchTabParamList,
+  SavedTabParamList,
+  UserTabParamList,
+} from '../types';
 
 const BottomTab = createBottomTabNavigator<BottomTabParamList>();
 
@@ -17,23 +25,30 @@ export default function BottomTabNavigator() {
   const colorScheme = useColorScheme();
 
   return (
-    <BottomTab.Navigator initialRouteName="TabOne" tabBarOptions={{ activeTintColor: Colors[colorScheme].tint }}>
+    <BottomTab.Navigator initialRouteName="Home" tabBarOptions={{ activeTintColor: Colors[colorScheme].tint }}>
       <BottomTab.Screen
-        name="TabOne"
-        component={TabOneNavigator}
+        name="Home"
+        component={HomeNavigator}
         options={{
           tabBarIcon: ({ color }) => <TabBarIcon name="home" color={color} />,
         }}
       />
       <BottomTab.Screen
-        name="TabTwo"
-        component={TabTwoNavigator}
+        name="Search"
+        component={SearchNavigator}
         options={{
           tabBarIcon: ({ color }) => <TabBarIcon name="search" color={color} />,
         }}
       />
       <BottomTab.Screen
-        name="TabUser"
+        name="Saved"
+        component={SavedNavigator}
+        options={{
+          tabBarIcon: ({ color }) => <TabBarIcon name="bookmark" color={color} />,
+        }}
+      />
+      <BottomTab.Screen
+        name="User"
         component={UserNavigator}
         options={{
           tabBarIcon: ({ color }) => <TabBarIcon name="user" color={color} />,
@@ -51,23 +66,33 @@ function TabBarIcon(props: { name: string; color: string }) {
 
 // Each tab has its own navigation stack, you can read more about this pattern here:
 // https://reactnavigation.org/docs/tab-based-navigation#a-stack-navigator-for-each-tab
-const TabOneStack = createStackNavigator<TabOneParamList>();
+const HomeTabStack = createStackNavigator<HomeTabParamList>();
 
-function TabOneNavigator() {
+function HomeNavigator() {
   return (
-    <TabOneStack.Navigator>
-      <TabOneStack.Screen name="TabOneScreen" component={TabOneScreen} options={{ headerTitle: 'Tab One Title' }} />
-    </TabOneStack.Navigator>
+    <HomeTabStack.Navigator>
+      <HomeTabStack.Screen name="Home" component={Home} options={{ headerShown: false }} />
+    </HomeTabStack.Navigator>
   );
 }
 
-const TabTwoStack = createStackNavigator<TabTwoParamList>();
+const SearchTabStack = createStackNavigator<SearchTabParamList>();
 
-function TabTwoNavigator() {
+function SearchNavigator() {
   return (
-    <TabTwoStack.Navigator>
-      <TabTwoStack.Screen name="TabTwoScreen" component={TabTwoScreen} options={{ headerTitle: 'Tab Two Title' }} />
-    </TabTwoStack.Navigator>
+    <SearchTabStack.Navigator>
+      <SearchTabStack.Screen name="Search" component={Search} options={{ headerShown: false }} />
+    </SearchTabStack.Navigator>
+  );
+}
+
+const SavedTabStack = createStackNavigator<SavedTabParamList>();
+
+function SavedNavigator() {
+  return (
+    <SavedTabStack.Navigator>
+      <SavedTabStack.Screen name="Saved" component={Saved} options={{ headerShown: false }} />
+    </SavedTabStack.Navigator>
   );
 }
 
@@ -76,7 +101,7 @@ const UserTabStack = createStackNavigator<UserTabParamList>();
 function UserNavigator() {
   return (
     <UserTabStack.Navigator>
-      <UserTabStack.Screen name="TabUserScreen" component={UserScreen} options={{ headerTitle: 'React Native' }} />
+      <UserTabStack.Screen name="User" component={User} options={{ headerShown: false }} />
     </UserTabStack.Navigator>
   );
 }

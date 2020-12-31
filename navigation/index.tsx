@@ -9,6 +9,10 @@ import NotFoundScreen from '../screens/NotFoundScreen';
 import { RootStackParamList } from '../types';
 import BottomTabNavigator from './BottomTabNavigator';
 import LinkingConfiguration from './LinkingConfiguration';
+import Signup from '../screens/Signup';
+import Signin from '../screens/Signin';
+import Preference from '../screens/Preference';
+import Movie from '../screens/Movie';
 
 // If you are not familiar with React Navigation, we recommend going through the
 // "Fundamentals" guide: https://reactnavigation.org/docs/getting-started
@@ -28,7 +32,11 @@ function RootNavigator() {
   return (
     <Stack.Navigator screenOptions={{ headerShown: false }}>
       <Stack.Screen name="Onboarding" component={Onboarding} />
+      <Stack.Screen name="Preference" component={Preference} />
+      <Stack.Screen name="Signup" component={Signup} />
+      <Stack.Screen name="Signin" component={Signin} />
       <Stack.Screen name="Layout" component={BottomTabNavigator} />
+      <Stack.Screen name="Movie" component={Movie} />
       <Stack.Screen name="NotFound" component={NotFoundScreen} options={{ title: 'Oops!' }} />
     </Stack.Navigator>
   );

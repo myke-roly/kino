@@ -26,7 +26,7 @@ const Home = () => {
     dispatch({ type: TYPES.GET_MOVIES_REQUEST, page });
   }, [dispatch, page]);
 
-  const [cards, setCards] = useState<any[]>(movies?.results);
+  const [cards, setCards] = useState<any[]>(movies ? movies?.results : []);
 
   const swipe = useRef(new Animated.ValueXY()).current;
   const tiltSign = useRef(new Animated.Value(1)).current;
@@ -39,8 +39,8 @@ const Home = () => {
     },
     onPanResponderRelease: (_, { dy, dx }) => {
       const direction = Math.sign(dx);
-      console.log(direction);
       const isActionActive = Math.abs(dx) > ACTION_OFFSET;
+      console.log('CONSTANTES', Math.abs(dx), direction);
 
       if (isActionActive) {
         Animated.timing(swipe, {
@@ -87,11 +87,11 @@ const Home = () => {
   );
 
   useEffect(() => {
-    if (!cards.length) {
+    if (movies && !cards.length) {
       setPage((prevState) => prevState + 1);
       setCards(movies?.results);
     }
-  }, [cards.length, page]);
+  }, [cards.length, page, movies]);
 
   return (
     <>
@@ -107,7 +107,7 @@ const Home = () => {
           </Text>
         </Text>
 
-        {cards && <Cards items={cards} panResponder={panResponder} swipe={swipe} tiltSign={tiltSign} />}
+        {movies && <Cards items={cards} panResponder={panResponder} swipe={swipe} tiltSign={tiltSign} />}
 
         <View style={styles.buttons}>
           <TouchableOpacity onPress={() => pressButtons(-1)}>

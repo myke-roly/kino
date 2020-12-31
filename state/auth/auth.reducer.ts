@@ -2,7 +2,7 @@ import { AuthActionsTypes, AuthI, TYPES } from './auth.types';
 import { initialState } from '../types';
 
 const initialStateAuth = {
-  auth: initialState,
+  signup: initialState,
   signin: initialState,
 };
 
@@ -11,7 +11,7 @@ const reducer = (state = initialStateAuth, action: AuthActionsTypes): AuthI => {
     case TYPES.SIGNUP_REQUEST:
       return {
         ...state,
-        auth: {
+        signup: {
           data: null,
           isLoading: true,
           error: null,
@@ -20,7 +20,7 @@ const reducer = (state = initialStateAuth, action: AuthActionsTypes): AuthI => {
     case TYPES.SIGNUP_SUCCESS:
       return {
         ...state,
-        auth: {
+        signup: {
           data: action.payload.data,
           isLoading: false,
           error: null,
@@ -29,10 +29,10 @@ const reducer = (state = initialStateAuth, action: AuthActionsTypes): AuthI => {
     case TYPES.SIGNUP_FAILED:
       return {
         ...state,
-        auth: {
+        signup: {
           data: null,
           isLoading: false,
-          error: 'ERROR EN LA PETICION',
+          error: action.payload.data,
         },
       };
     case TYPES.SIGNIN_REQUEST:
@@ -59,7 +59,7 @@ const reducer = (state = initialStateAuth, action: AuthActionsTypes): AuthI => {
         signin: {
           data: null,
           isLoading: false,
-          error: 'ERROR EN LA PETICION',
+          error: action.payload.data,
         },
       };
 

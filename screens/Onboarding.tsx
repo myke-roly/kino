@@ -24,10 +24,16 @@ const Onboarding: FC<PropsI> = ({ navigation }) => {
           title="Continue"
         />
         <Button
-          title="next"
           onPress={() => {
-            navigation.navigate('Preference');
+            navigation.navigate('Layout');
           }}
+          title="Continue"
+        />
+        <Button
+          onPress={() => {
+            navigation.navigate('Signin');
+          }}
+          title="Continue"
         />
       </View>
     </>

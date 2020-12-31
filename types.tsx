@@ -38,6 +38,4 @@ export interface UserSigninI {
   email: string;
   password: string;
 }
-export interface UserSignupI extends UserSigninI {
-  username: string;
-}
+export interface UserSignupI extends UserSigninI {}

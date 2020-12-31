@@ -1,4 +1,4 @@
-import { getFinalUrl, URL_BASE_AUTH, URL_BASE_MOVIES } from './constants';
+import { getFinalUrl } from './constants';
 
 export enum Methods {
   get = 'GET',
@@ -48,7 +48,7 @@ export const fetchModule = async (options: FetchModuleI): Promise<any> => {
         'Content-Type': type,
       };
 
-  const body = payload ? payload : null;
+  const body = payload ? JSON.stringify(payload) : null;
 
   const requestOptions: RequestOptionsI = {
     crossDomain: true,

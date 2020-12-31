@@ -11,6 +11,8 @@ import { signupSelector } from '../state/auth/auth.selector';
 import { useDispatch, useSelector } from 'react-redux';
 import { TYPES } from '../state/auth/auth.types';
 import { useAuthentication } from '../hooks/useAsyncStorage';
+import { signUp } from '../firebase';
+import { SignupRequest } from '../state/auth/auth.actions';
 
 interface PropsI {
   navigation: NavigatorProps;
@@ -21,8 +23,6 @@ const Signup: FC<PropsI> = ({ navigation }) => {
   const [password, setPassword] = useState<string>('');
   const [username, setUsername] = useState<string>('');
 
-  const { token, saveToken, getToken } = useAuthentication();
-
   const dispatch = useDispatch();
   const { data, error, isLoading } = useSelector((state) => signupSelector(state));
 
@@ -30,14 +30,16 @@ const Signup: FC<PropsI> = ({ navigation }) => {
     return Alert.alert('Termns & Condition');
   }
 
-  function sendForm(): void {
+  function sendForm() {
     const user: UserSignupI = {
-      username,
       email,
       password,
     };
 
-    dispatch({ type: TYPES.SIGNUP_REQUEST, user: user });
+    // signUp(user);
+    dispatch(SignupRequest({ user }));
+    console.log(data);
+
     setUsername('');
     setEmail('');
     setPassword('');
@@ -47,19 +49,10 @@ const Signup: FC<PropsI> = ({ navigation }) => {
     return email.includes('@');
   }
 
-  useEffect(() => {
-    getToken();
-    if (token) navigation.navigate('Preference');
-    if (data?.token) {
-      saveToken(data.token);
-      navigation.navigate('Preference');
-    }
-  }, [data, token]);
-
   return (
     <>
       {isLoading && <Loading />}
-      <View style={stylesGlobal.containerCenter}>
+      <View style={[stylesGlobal.containerCenter, { paddingHorizontal: 20 }]}>
         <Text style={stylesGlobal.titleForm}>Sign Up</Text>
         <SocialButton icon="google" onPres={() => console.log('login with google')}>
           Sign up with Google
@@ -68,13 +61,6 @@ const Signup: FC<PropsI> = ({ navigation }) => {
         Sign up with Apple
       </SocialButton> */}
         <Text style={styles.placeholder}>Or</Text>
-        <TextInput
-          style={stylesGlobal.input}
-          placeholderTextColor="#ccc"
-          placeholder="Username"
-          value={username}
-          onChangeText={(text) => setUsername(text)}
-        />
         <TextInput
           style={stylesGlobal.input}
           placeholderTextColor="#ccc"

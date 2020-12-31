@@ -1,7 +1,12 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { View, Text, StyleSheet } from 'react-native';
+import { getUserData } from '../firebase';
 
 const HelloReactNative = () => {
+  useEffect(() => {
+    getUserData();
+  }, []);
+
   return (
     <View style={styles.user}>
       <Text style={styles.title}>USER Mike</Text>

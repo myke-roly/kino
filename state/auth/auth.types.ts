@@ -12,14 +12,13 @@ export enum TYPES {
   LOGOUT = 'LOGOUT',
 }
 export interface AuthI {
-  auth: InitialStateI;
+  signup: InitialStateI;
   signin: InitialStateI;
 }
 
 export interface UserI {
-  username: 'string';
-  email: 'string';
-  password: 'string';
+  email: string;
+  password: string;
 }
 
 interface SignupActionRequest {
@@ -33,6 +32,7 @@ interface SignupActionSucess {
 
 interface SignupActionFailed {
   type: typeof TYPES.SIGNUP_FAILED;
+  payload: any;
 }
 
 interface SigninActionRequest {
@@ -46,6 +46,7 @@ interface SigninActionSucess {
 
 interface SigninActionFailed {
   type: typeof TYPES.SIGNIN_FAILED;
+  payload: any;
 }
 
 interface LogoutpAction {

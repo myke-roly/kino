@@ -6,8 +6,8 @@ import Buttons from '../components/Buttons';
 import { NavigatorProps } from '../types';
 import { useDispatch, useSelector } from 'react-redux';
 import { moviesSelector } from '../state/movies/movies.selector';
-import { TYPES } from '../state/movies/movies.types';
 import Loading from '../components/Loader';
+import { getMovies } from '../state/movies/movies.actions';
 interface PropsI {
   navigation: NavigatorProps;
 }
@@ -21,7 +21,7 @@ const Preference: FC<PropsI> = ({ navigation }) => {
   }
 
   useEffect(() => {
-    dispatch({ type: TYPES.GET_MOVIES_REQUEST });
+    dispatch(getMovies({ page: 1 }));
   }, []);
 
   return (

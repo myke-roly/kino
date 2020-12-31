@@ -9,3 +9,5 @@ export const trendingMoviesSelector = createSelector([reducer], (Movies) => Movi
 export const searchMovieSelector = createSelector([reducer], (Movies) => Movies?.searchMovies);
 
 export const saveMovieSelector = createSelector([reducer], (Movies) => Movies?.saveMovie);
+
+export const getMovieSelector = createSelector([reducer], (Movies) => Movies?.getMovie);

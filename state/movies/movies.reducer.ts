@@ -6,6 +6,7 @@ const initialStateAuth = {
   getTrendingMovies: initialState,
   searchMovies: initialState,
   saveMovie: initialState,
+  getMovie: initialState,
 };
 
 const request = (): InitialStateI => ({
@@ -22,6 +23,25 @@ const failed = (error: string): InitialStateI => ({
 
 const reducer = (state = initialStateAuth, action: MoviesTypes): MoviesI => {
   switch (action.type) {
+    case TYPES.GET_MOVIE_REQUEST:
+      return {
+        ...state,
+        getMovie: request(),
+      };
+    case TYPES.GET_MOVIE_SUCCESS:
+      return {
+        ...state,
+        getMovie: {
+          data: action.payload.data,
+          isLoading: false,
+          error: null,
+        },
+      };
+    case TYPES.GET_MOVIE_FAILED:
+      return {
+        ...state,
+        getMovie: failed('error en la peticion'),
+      };
     case TYPES.GET_MOVIES_REQUEST:
       return {
         ...state,
@@ -31,7 +51,7 @@ const reducer = (state = initialStateAuth, action: MoviesTypes): MoviesI => {
       return {
         ...state,
         getMovies: {
-          data: action.payload,
+          data: action.payload.data,
           isLoading: false,
           error: null,
         },
@@ -50,7 +70,7 @@ const reducer = (state = initialStateAuth, action: MoviesTypes): MoviesI => {
       return {
         ...state,
         getTrendingMovies: {
-          data: action.payload,
+          data: action.payload.data,
           isLoading: false,
           error: null,
         },
@@ -69,7 +89,7 @@ const reducer = (state = initialStateAuth, action: MoviesTypes): MoviesI => {
       return {
         ...state,
         searchMovies: {
-          data: action.payload,
+          data: action.payload.data,
           isLoading: false,
           error: null,
         },
@@ -88,7 +108,7 @@ const reducer = (state = initialStateAuth, action: MoviesTypes): MoviesI => {
       return {
         ...state,
         saveMovie: {
-          data: action.payload,
+          data: action.payload.data,
           isLoading: false,
           error: null,
         },

@@ -1,61 +1,44 @@
-import { call, put, takeLatest } from 'redux-saga/effects';
-import * as service from './movies.action';
+import { takeLatest } from 'redux-saga/effects';
+import { makeWorker } from '../utils';
+import * as service from './movies.services';
 import { TYPES } from './movies.types';
 
-interface PauloadI {
-  page: number;
-  movie: string | number;
-}
+const watcherGetMovies = makeWorker(service.getMovies, {
+  success: TYPES.GET_MOVIES_SUCCESS,
+  failed: TYPES.GET_MOVIES_FAILED,
+  retry: TYPES.GET_MOVIES_REQUEST,
+});
 
-function* watcherGetMovies(payload: PauloadI) {
-  try {
-    const data = yield call(service.getMovies, payload.page);
-    yield put({ type: TYPES.GET_MOVIES_SUCCESS, payload: data.data });
-  } catch (error) {
-    console.error(error);
-    yield put({ type: TYPES.GET_MOVIES_FAILED });
-  }
-}
+const watcherGetTrendingMovies = makeWorker(service.getTrendingMovies, {
+  success: TYPES.GET_TRENDING_MOVIES_SUCCESS,
+  failed: TYPES.GET_TRENDING_MOVIES_FAILED,
+  retry: TYPES.GET_TRENDING_MOVIES_REQUEST,
+});
 
-function* watcherGetTrendingMovies() {
-  try {
-    const data = yield call(service.getTrendingMovies);
-    yield put({ type: TYPES.GET_TRENDING_MOVIES_SUCCESS, payload: data.data });
-  } catch (error) {
-    console.error(error);
-    yield put({ type: TYPES.GET_TRENDING_MOVIES_FAILED });
-  }
-}
+const watcherSearchMovies = makeWorker(service.searchMovies, {
+  success: TYPES.SEARCH_MOVIES_SUCCESS,
+  failed: TYPES.SEARCH_MOVIES_FAILED,
+  retry: TYPES.SEARCH_MOVIES_REQUEST,
+});
 
-interface PayloadI {
-  query: string;
-}
+const watcherSaveMovie = makeWorker(service.saveMovie, {
+  success: TYPES.SAVE_MOVIE_SUCCESS,
+  failed: TYPES.SAVE_MOVIE_FAILED,
+  retry: TYPES.SAVE_MOVIE_REQUEST,
+});
 
-function* watcherSearchMovies(payload: PayloadI) {
-  try {
-    const data = yield call(service.searchMovies, payload.query);
-    yield put({ type: TYPES.SEARCH_MOVIES_SUCCESS, payload: data.data });
-  } catch (error) {
-    console.error(error);
-    yield put({ type: TYPES.SEARCH_MOVIES_FAILED });
-  }
-}
-
-function* watcherSaveMovie(payload: PauloadI) {
-  try {
-    const data = yield call(service.saveMovie, payload.movie);
-    yield put({ type: TYPES.SAVE_MOVIE_SUCCESS, payload: data.data });
-  } catch (error) {
-    console.error(error);
-    yield put({ type: TYPES.SAVE_MOVIE_FAILED });
-  }
-}
+const watcherGetMovie = makeWorker(service.getMovie, {
+  success: TYPES.GET_MOVIE_SUCCESS,
+  failed: TYPES.GET_MOVIE_FAILED,
+  retry: TYPES.GET_MOVIE_REQUEST,
+});
 
 function* moviesSaga() {
   yield takeLatest<any>(TYPES.GET_MOVIES_REQUEST, watcherGetMovies);
   yield takeLatest<any>(TYPES.GET_TRENDING_MOVIES_REQUEST, watcherGetTrendingMovies);
   yield takeLatest<any>(TYPES.SEARCH_MOVIES_REQUEST, watcherSearchMovies);
   yield takeLatest<any>(TYPES.SAVE_MOVIE_REQUEST, watcherSaveMovie);
+  yield takeLatest<any>(TYPES.GET_MOVIE_REQUEST, watcherGetMovie);
 }
 
 export default moviesSaga;

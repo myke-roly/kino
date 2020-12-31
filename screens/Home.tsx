@@ -11,6 +11,7 @@ import { TYPES } from '../state/movies/movies.types';
 
 import Loading from '../components/Loader';
 import Cards from '../components/Cards';
+import { getMovies } from '../state/movies/movies.actions';
 
 const Home = () => {
   const [page, setPage] = useState<number>(1);
@@ -23,7 +24,7 @@ const Home = () => {
   const { data: movies, isLoading } = useSelector((state) => moviesSelector(state));
 
   useEffect(() => {
-    dispatch({ type: TYPES.GET_MOVIES_REQUEST, page });
+    dispatch(getMovies({ page }));
   }, [dispatch, page]);
 
   const [cards, setCards] = useState<any[]>(movies ? movies?.results : []);
@@ -91,7 +92,9 @@ const Home = () => {
       setPage((prevState) => prevState + 1);
       setCards(movies?.results);
     }
-  }, [cards.length, page, movies]);
+  }, [cards, page, movies]);
+
+  console.log(movies, cards);
 
   return (
     <>
@@ -107,7 +110,7 @@ const Home = () => {
           </Text>
         </Text>
 
-        {movies && <Cards items={cards} panResponder={panResponder} swipe={swipe} tiltSign={tiltSign} />}
+        {movies && cards && <Cards items={cards} panResponder={panResponder} swipe={swipe} tiltSign={tiltSign} />}
 
         <View style={styles.buttons}>
           <TouchableOpacity onPress={() => pressButtons(-1)}>

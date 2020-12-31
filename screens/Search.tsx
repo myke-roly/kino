@@ -9,6 +9,7 @@ import { moviesSelector, trendingMoviesSelector } from '../state/movies/movies.s
 import { TYPES } from '../state/movies/movies.types';
 import Loading from '../components/Loader';
 import { NavigatorProps } from '../types';
+import { getMovies, getTrendingMovies, searchMovie } from '../state/movies/movies.actions';
 
 interface PropsI {
   navigation: NavigatorProps;
@@ -21,15 +22,15 @@ const Search: FC<PropsI> = ({ navigation }) => {
   const { data: discoverMovies } = useSelector((state) => moviesSelector(state));
 
   function search() {
-    dispatch({ type: TYPES.SEARCH_MOVIES_REQUEST, query: query });
+    dispatch(searchMovie({ query: query }));
   }
 
   useEffect(() => {
     if (!trendigMovies) {
-      dispatch({ type: TYPES.GET_TRENDING_MOVIES_REQUEST });
+      dispatch(getTrendingMovies());
     }
     if (!discoverMovies) {
-      dispatch({ type: TYPES.GET_MOVIES_REQUEST, page: 1 });
+      dispatch(getMovies({ page: 1 }));
     }
   }, [dispatch]);
 

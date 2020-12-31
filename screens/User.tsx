@@ -1,15 +1,13 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
-import { getUserData } from '../firebase';
+import useGetUserData from '../hooks/useAuthFirebase';
 
 const HelloReactNative = () => {
-  useEffect(() => {
-    getUserData();
-  }, []);
+  const { userData } = useGetUserData();
 
   return (
     <View style={styles.user}>
-      <Text style={styles.title}>USER Mike</Text>
+      <Text style={styles.title}>{userData?.email}</Text>
     </View>
   );
 };
@@ -21,7 +19,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   title: {
-    color: 'white',
+    color: 'black',
   },
 });
 

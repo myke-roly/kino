@@ -13,7 +13,6 @@ export async function signup(payload: PayloadI): Promise<any> {
     payload: payload.user,
     type: typeRequest.json,
   };
-
   return await httpModules.post(options);
 }
 

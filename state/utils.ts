@@ -1,6 +1,5 @@
 import { call, put } from 'redux-saga/effects';
 import { UserI } from './auth/auth.types';
-import { TYPES } from './movies/movies.types';
 
 interface PayloadI {
   type: string;

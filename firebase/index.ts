@@ -17,25 +17,9 @@ interface UserI {
 }
 
 export async function signIn(user: UserI): Promise<any> {
-  return await app
-    .auth()
-    .signInWithEmailAndPassword(user.email, user.password)
-    .then((data) => console.log(data))
-    .catch((error) => console.log(error));
+  return await app.auth().signInWithEmailAndPassword(user.email, user.password);
 }
 
 export async function signUp(user: UserI): Promise<any> {
-  return await app
-    .auth()
-    .createUserWithEmailAndPassword(user.email, user.password)
-    .then((data) => console.log(data))
-    .catch((error) => console.log(error));
-}
-
-export function getUserData() {
-  app.auth().onAuthStateChanged((user) => {
-    if (user) {
-      console.log(user);
-    }
-  });
+  return await app.auth().createUserWithEmailAndPassword(user.email, user.password);
 }

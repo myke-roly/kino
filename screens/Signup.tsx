@@ -1,4 +1,4 @@
-import React, { FC, useEffect, useState } from 'react';
+import React, { FC, useState } from 'react';
 import { Alert, StyleSheet, Text, View, TextInput } from 'react-native';
 import { stylesGlobal } from '../styles';
 import SocialButton from '../components/SocialButton';
@@ -6,13 +6,7 @@ import ButtonForm from '../components/ButtonForm';
 import Loading from '../components/Loader';
 
 import { NavigatorProps, UserSignupI } from '../types';
-
-import { signupSelector } from '../state/auth/auth.selector';
-import { useDispatch, useSelector } from 'react-redux';
-import { TYPES } from '../state/auth/auth.types';
-import { useAuthentication } from '../hooks/useAsyncStorage';
 import { signUp } from '../firebase';
-import { SignupRequest } from '../state/auth/auth.actions';
 
 interface PropsI {
   navigation: NavigatorProps;
@@ -22,9 +16,6 @@ const Signup: FC<PropsI> = ({ navigation }) => {
   const [email, setEmail] = useState<string>('');
   const [password, setPassword] = useState<string>('');
   const [username, setUsername] = useState<string>('');
-
-  const dispatch = useDispatch();
-  const { data, error, isLoading } = useSelector((state) => signupSelector(state));
 
   function CreateTermsModal() {
     return Alert.alert('Termns & Condition');
@@ -36,9 +27,7 @@ const Signup: FC<PropsI> = ({ navigation }) => {
       password,
     };
 
-    // signUp(user);
-    dispatch(SignupRequest({ user }));
-    console.log(data);
+    signUp(user);
 
     setUsername('');
     setEmail('');
@@ -51,7 +40,6 @@ const Signup: FC<PropsI> = ({ navigation }) => {
 
   return (
     <>
-      {isLoading && <Loading />}
       <View style={[stylesGlobal.containerCenter, { paddingHorizontal: 20 }]}>
         <Text style={stylesGlobal.titleForm}>Sign Up</Text>
         <SocialButton icon="google" onPres={() => console.log('login with google')}>

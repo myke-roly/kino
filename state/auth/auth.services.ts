@@ -17,7 +17,6 @@ export async function signup(payload: PayloadI): Promise<any> {
 }
 
 export async function signin(payload: PayloadI): Promise<any> {
-  console.log(payload.user);
   const options = {
     url: 'auth/signin',
     method: Methods.post,

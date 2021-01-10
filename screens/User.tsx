@@ -1,19 +1,35 @@
-import React from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import React, { FC, Props } from 'react';
+import { View, Text, StyleSheet, Button } from 'react-native';
+import { signOut } from '../firebase';
 import useGetUserData from '../hooks/useAuthFirebase';
+import { NavigatorProps } from '../types';
 
-const HelloReactNative = () => {
+interface PropsI {
+  navigation: NavigatorProps;
+}
+
+const User: FC<PropsI> = ({ navigation }) => {
   const { userData } = useGetUserData();
 
+  const logout = () => {
+    console.log('logout....');
+    signOut();
+    navigation.reset({
+      index: 0,
+      routes: [{ name: 'Signin' }],
+    });
+  };
+
   return (
-    <View style={styles.user}>
+    <View style={styles.container}>
+      <Button title="sign out" onPress={logout} />
       <Text style={styles.title}>{userData?.email}</Text>
     </View>
   );
 };
 
 const styles = StyleSheet.create({
-  user: {
+  container: {
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
@@ -23,4 +39,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default HelloReactNative;
+export default User;

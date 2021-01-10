@@ -1,13 +1,11 @@
-import React, { FC, useEffect, useState } from 'react';
+import React, { FC, useState } from 'react';
 import { Text, TextInput, View, Linking } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 import ButtonForm from '../components/ButtonForm';
 import Loading from '../components/Loader';
 import SocialButton from '../components/SocialButton';
 import { signIn } from '../firebase';
-import { SigninRequest } from '../state/auth/auth.actions';
 import { signinSelector } from '../state/auth/auth.selector';
-import { TYPES, UserI } from '../state/auth/auth.types';
 import { stylesGlobal } from '../styles';
 import { NavigatorProps } from '../types';
 
@@ -26,15 +24,13 @@ export const Signin: FC<PropsI> = ({ navigation }) => {
       email,
       password,
     };
-    dispatch(SigninRequest({ user }));
-
     try {
-      // await signIn(user);
+      await signIn(user);
     } catch (error) {
       console.log(error);
     }
 
-    // navigation.replace('Layout');
+    navigation.replace('Layout');
   }
 
   return (

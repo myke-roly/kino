@@ -1,14 +1,26 @@
-import React, { FC } from 'react';
+import React, { FC, useEffect } from 'react';
 import { StyleSheet, Text, View, Image, Button } from 'react-native';
 import { NavigatorProps } from '../types';
 import { stylesGlobal } from '../styles';
 import Buttons from '../components/Buttons';
+import useGetUserData from '../hooks/useAuthFirebase';
 
 interface PropsI {
   navigation: NavigatorProps;
 }
 
 const Onboarding: FC<PropsI> = ({ navigation }) => {
+  const { userData } = useGetUserData();
+  useEffect(() => {
+    console.log(userData.length);
+
+    if (userData?.length) {
+      navigation.reset({
+        index: 0,
+        routes: [{ name: 'Layout' }],
+      });
+    }
+  }, [userData]);
   return (
     <>
       <View style={stylesGlobal.containerCenter}>
@@ -18,18 +30,6 @@ const Onboarding: FC<PropsI> = ({ navigation }) => {
       </View>
       <View style={{ padding: 20, backgroundColor: '#f8f8f8' }}>
         <Buttons
-          onPress={() => {
-            navigation.navigate('Signin');
-          }}
-          title="Continue"
-        />
-        <Button
-          onPress={() => {
-            navigation.navigate('Layout');
-          }}
-          title="Continue"
-        />
-        <Button
           onPress={() => {
             navigation.navigate('Signin');
           }}

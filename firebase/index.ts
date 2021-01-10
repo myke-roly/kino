@@ -23,3 +23,7 @@ export async function signIn(user: UserI): Promise<any> {
 export async function signUp(user: UserI): Promise<any> {
   return await app.auth().createUserWithEmailAndPassword(user.email, user.password);
 }
+
+export async function signOut() {
+  await app.auth().signOut();
+}

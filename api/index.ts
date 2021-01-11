@@ -2,7 +2,6 @@ import { fetchModule, TYPES, Methods, FetchModuleI } from './utils';
 
 export { TYPES };
 
-
 export const httpModules = {
   async get(options: FetchModuleI) {
     try {

@@ -1,7 +1,7 @@
 export interface InitialStateI {
   isLoading: boolean;
   error: null | string;
-  data: null | {} | [];
+  data: null | {} | any[];
 }
 
 export const initialState: InitialStateI = {

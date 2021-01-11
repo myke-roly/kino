@@ -28,6 +28,7 @@ const Signup: FC<PropsI> = ({ navigation }) => {
     };
 
     signUp(user);
+    navigation.replace('Layout');
 
     setUsername('');
     setEmail('');

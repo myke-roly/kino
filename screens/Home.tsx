@@ -12,6 +12,7 @@ import { TYPES } from '../state/movies/movies.types';
 import Loading from '../components/Loader';
 import Cards from '../components/Cards';
 import { getMovies } from '../state/movies/movies.actions';
+import { InitialStateI } from '../state/types';
 
 const Home = () => {
   const [page, setPage] = useState<number>(1);

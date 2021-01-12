@@ -52,6 +52,11 @@ export default {
               movieId: 'movieId',
             },
           },
+          SearchFilter: {
+            screens: {
+              Movie: 'SearchFilter',
+            },
+          },
         },
       },
       // NotFound: '*',

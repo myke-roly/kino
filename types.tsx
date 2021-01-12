@@ -7,8 +7,8 @@ export type RootStackParamList = {
   Preference: undefined;
   Layout: undefined;
   NotFound: undefined;
-  Movie: undefined;
   EditUser: undefined;
+  SearchFilters: undefined;
 };
 
 export type BottomTabParamList = {
@@ -25,6 +25,7 @@ export type HomeTabParamList = {
 export type SearchTabParamList = {
   Search: undefined;
   Movie: undefined;
+  SearchFilters: undefined;
 };
 
 export type SavedTabParamList = {

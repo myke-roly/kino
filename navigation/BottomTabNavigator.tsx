@@ -7,7 +7,7 @@ import Colors from '../constants/Colors';
 import useColorScheme from '../hooks/useColorScheme';
 
 import Home from '../screens/Home/Home';
-import Search from '../screens/Search/Search';
+import Search from '../screens/Search/PupularsMoovies';
 import Saved from '../screens/Saved/Saved';
 import User from '../screens/User/User';
 
@@ -21,6 +21,7 @@ import {
 import EditUser from '../screens/User/EditUser';
 import Movie from '../screens/Search/Movie';
 import { View, Text } from 'react-native';
+import SearchFilters from '../screens/Search/SearchFilters';
 
 const BottomTab = createBottomTabNavigator<BottomTabParamList>();
 
@@ -85,6 +86,7 @@ function SearchNavigator() {
   return (
     <SearchTabStack.Navigator>
       <SearchTabStack.Screen name="Search" component={Search} options={{ headerShown: false }} />
+      <SearchTabStack.Screen name="SearchFilters" component={SearchFilters} options={{ headerShown: true }} />
       <SearchTabStack.Screen
         name="Movie"
         component={Movie}

@@ -1,8 +1,8 @@
 import React, { FC, Props } from 'react';
 import { View, Text, StyleSheet, Button } from 'react-native';
-import { signOut } from '../firebase';
-import useGetUserData from '../hooks/useAuthFirebase';
-import { NavigatorProps } from '../types';
+import { signOut } from '../../firebase';
+import useGetUserData from '../../hooks/useAuthFirebase';
+import { NavigatorProps } from '../../types';
 
 interface PropsI {
   navigation: NavigatorProps;
@@ -23,6 +23,7 @@ const User: FC<PropsI> = ({ navigation }) => {
   return (
     <View style={styles.container}>
       <Button title="sign out" onPress={logout} />
+      <Button title="edit profile" onPress={() => navigation.navigate('EditUser')} />
       <Text style={styles.title}>{userData?.email}</Text>
     </View>
   );

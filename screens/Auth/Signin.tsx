@@ -1,13 +1,13 @@
 import React, { FC, useState } from 'react';
 import { Text, TextInput, View, Linking } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
-import ButtonForm from '../components/ButtonForm';
-import Loading from '../components/Loader';
-import SocialButton from '../components/SocialButton';
-import { signIn } from '../firebase';
-import { signinSelector } from '../state/auth/auth.selector';
-import { stylesGlobal } from '../styles';
-import { NavigatorProps } from '../types';
+import ButtonForm from '../../components/ButtonForm';
+import Loading from '../../components/Loader';
+import SocialButton from '../../components/SocialButton';
+import { signIn } from '../../firebase';
+import { signinSelector } from '../../state/auth/auth.selector';
+import { stylesGlobal } from '../../styles';
+import { NavigatorProps } from '../../types';
 
 interface PropsI {
   navigation: NavigatorProps;

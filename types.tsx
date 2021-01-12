@@ -8,6 +8,7 @@ export type RootStackParamList = {
   Layout: undefined;
   NotFound: undefined;
   Movie: undefined;
+  EditUser: undefined;
 };
 
 export type BottomTabParamList = {
@@ -23,6 +24,7 @@ export type HomeTabParamList = {
 
 export type SearchTabParamList = {
   Search: undefined;
+  Movie: undefined;
 };
 
 export type SavedTabParamList = {
@@ -31,6 +33,7 @@ export type SavedTabParamList = {
 
 export type UserTabParamList = {
   User: undefined;
+  EditUser: undefined;
 };
 
 export type NavigatorProps = StackNavigationProp<RootStackParamList>;

@@ -1,12 +1,12 @@
 import React, { FC, useState } from 'react';
 import { Alert, StyleSheet, Text, View, TextInput } from 'react-native';
-import { stylesGlobal } from '../styles';
-import SocialButton from '../components/SocialButton';
-import ButtonForm from '../components/ButtonForm';
-import Loading from '../components/Loader';
+import { stylesGlobal } from '../../styles';
+import SocialButton from '../../components/SocialButton';
+import ButtonForm from '../../components/ButtonForm';
+import Loading from '../../components/Loader';
 
-import { NavigatorProps, UserSignupI } from '../types';
-import { signUp } from '../firebase';
+import { NavigatorProps, UserSignupI } from '../../types';
+import { signUp } from '../../firebase';
 
 interface PropsI {
   navigation: NavigatorProps;

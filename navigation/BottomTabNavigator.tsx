@@ -6,10 +6,10 @@ import * as React from 'react';
 import Colors from '../constants/Colors';
 import useColorScheme from '../hooks/useColorScheme';
 
-import Home from '../screens/Home';
-import Search from '../screens/Search';
-import Saved from '../screens/Saved';
-import User from '../screens/User';
+import Home from '../screens/Home/Home';
+import Search from '../screens/Search/Search';
+import Saved from '../screens/Saved/Saved';
+import User from '../screens/User/User';
 
 import {
   BottomTabParamList,
@@ -18,6 +18,9 @@ import {
   SavedTabParamList,
   UserTabParamList,
 } from '../types';
+import EditUser from '../screens/User/EditUser';
+import Movie from '../screens/Search/Movie';
+import { View, Text } from 'react-native';
 
 const BottomTab = createBottomTabNavigator<BottomTabParamList>();
 
@@ -82,6 +85,20 @@ function SearchNavigator() {
   return (
     <SearchTabStack.Navigator>
       <SearchTabStack.Screen name="Search" component={Search} options={{ headerShown: false }} />
+      <SearchTabStack.Screen
+        name="Movie"
+        component={Movie}
+        options={{
+          headerShown: true,
+          headerRight: () => (
+            <View style={{ marginRight: 20 }}>
+              <Text>
+                <Feather name="star" size={20} />
+              </Text>
+            </View>
+          ),
+        }}
+      />
     </SearchTabStack.Navigator>
   );
 }
@@ -102,6 +119,7 @@ function UserNavigator() {
   return (
     <UserTabStack.Navigator>
       <UserTabStack.Screen name="User" component={User} options={{ headerShown: false }} />
+      <UserTabStack.Screen name="EditUser" component={EditUser} options={{ headerShown: true }} />
     </UserTabStack.Navigator>
   );
 }

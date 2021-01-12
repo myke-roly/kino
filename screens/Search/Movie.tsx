@@ -3,22 +3,21 @@ import { RouteProp } from '@react-navigation/native';
 import { Button, StyleSheet, Text, View, Image, Linking } from 'react-native';
 
 import { useDispatch, useSelector } from 'react-redux';
-import { getMovieSelector } from '../state/movies/movies.selector';
-import { stylesGlobal } from '../styles';
-import { NavigatorProps } from '../types';
-import { getMovie } from '../state/movies/movies.actions';
-import Loading from '../components/Loader';
+import { getMovieSelector } from '../../state/movies/movies.selector';
+import { stylesGlobal } from '../../styles';
+import { NavigatorProps } from '../../types';
+import { getMovie } from '../../state/movies/movies.actions';
+import Loading from '../../components/Loader';
 import { ScrollView } from 'react-native-gesture-handler';
-import Subtitle from '../components/Subtitle';
-import Title from '../components/Title';
-import { Feather } from '@expo/vector-icons';
+import Subtitle from '../../components/Subtitle';
+import Title from '../../components/Title';
 
 interface PropsI {
   route: RouteProp<{ params: { movieId: string } }, 'params'>;
   navigation: NavigatorProps;
 }
 
-const Movie: FC<PropsI> = ({ route, navigation }) => {
+const Movie: FC<PropsI> = ({ route }) => {
   const { movieId } = route.params;
   const dispatch = useDispatch();
   const { data, isLoading } = useSelector((state) => getMovieSelector(state));
@@ -31,10 +30,7 @@ const Movie: FC<PropsI> = ({ route, navigation }) => {
   return (
     <>
       {isLoading && <Loading />}
-      <View style={[stylesGlobal.container, { paddingHorizontal: 25 }]}>
-        {/* <TouchableOpacity onPress={() => navigation.goBack()}>
-          <Feather name="arrow-left" size={30} />
-        </TouchableOpacity> */}
+      <View style={{ ...stylesGlobal.containerCenter, ...styles.screen }}>
         <ScrollView showsVerticalScrollIndicator={false}>
           <Image style={styles.image} source={{ uri: `https://image.tmdb.org/t/p/w500/${data?.poster_path}` }} />
           <View style={{ paddingVertical: 20 }}>
@@ -56,11 +52,15 @@ const Movie: FC<PropsI> = ({ route, navigation }) => {
 export default Movie;
 
 const styles = StyleSheet.create({
+  screen: {
+    paddingHorizontal: 20,
+    marginBottom: 20,
+  },
   image: {
+    marginTop: 20,
     borderRadius: 10,
     width: '100%',
     height: 450,
-    marginTop: 20,
   },
   textDate: {
     marginVertical: 10,

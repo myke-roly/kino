@@ -2,17 +2,17 @@ import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { StyleSheet, Text, View, Animated, PanResponder } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { Feather } from '@expo/vector-icons';
-import { stylesGlobal } from '../styles';
-import { ACTION_OFFSET, CARD } from '../constants/Layout';
+import { stylesGlobal } from '../../styles';
+import { ACTION_OFFSET, CARD } from '../../constants/Layout';
 
 import { useDispatch, useSelector } from 'react-redux';
-import { moviesSelector } from '../state/movies/movies.selector';
-import { TYPES } from '../state/movies/movies.types';
+import { moviesSelector } from '../../state/movies/movies.selector';
+import { TYPES } from '../../state/movies/movies.types';
 
-import Loading from '../components/Loader';
-import Cards from '../components/Cards';
-import { getMovies } from '../state/movies/movies.actions';
-import { InitialStateI } from '../state/types';
+import Loading from '../../components/Loader';
+import Cards from '../../components/Cards';
+import { getMovies } from '../../state/movies/movies.actions';
+import { InitialStateI } from '../../state/types';
 
 const Home = () => {
   const [page, setPage] = useState<number>(1);

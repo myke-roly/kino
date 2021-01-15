@@ -54,11 +54,24 @@
     "@types/redux": "^3.6.0",
     "@types/redux-logger": "^3.0.8",
     "@types/redux-saga": "^0.10.5",
+    "husky": "^4.3.7",
     "jest-expo": "~40.0.0",
+    "lint-staged": "^10.5.3",
     "metro-react-native-babel-preset": "^0.64.0",
     "redux-devtools-extension": "^2.13.8",
     "redux-logger": "^3.0.6",
     "typescript": "~4.0.0"
   },
-  "private": false
+  "private": false,
+  "lint-staged": {
+    "*.{js,ts,tsx,jsx}": [
+      "prettier --write",
+      "eslint --ext .js,.jsx,.ts,.tsx" 
+    ]
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  }
 }

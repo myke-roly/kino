@@ -9,9 +9,21 @@ import Navigation from './navigation';
 
 import store from './state';
 
+import { Text } from 'react-native'
+
 export default function App() {
   const isLoadingComplete = useCachedResources();
-  const colorScheme = useColorScheme();
+  const colorScheme = useColorScheme()
+  const [isLoading, setIsLoading] = React.useState<boolean>(true);
+
+  if(isLoading) {
+    return <Text>loading...</Text>
+  }
+
+  React.useEffect(() => {
+    setTimeout(() => setIsLoading(false), 5000);	
+  }, []);
+
 
   if (!isLoadingComplete) {
     return null;

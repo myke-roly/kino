@@ -21,19 +21,45 @@ export default {
               Signin: 'Signin',
             },
           },
-          TabOne: {
+          Preference: {
             screens: {
-              TabOneScreen: 'one',
+              Preference: 'Preference',
             },
           },
-          TabTwo: {
+          Home: {
             screens: {
-              TabTwoScreen: 'two',
+              Home: 'Home',
+            },
+          },
+          Search: {
+            screens: {
+              Search: 'Search',
+            },
+          },
+          Saved: {
+            screens: {
+              Saved: 'Saved',
+            },
+          },
+          User: {
+            screens: {
+              User: 'User',
+            },
+          },
+          Movie: {
+            screens: {
+              Movie: 'Movie',
+              movieId: 'movieId',
+            },
+          },
+          SearchFilter: {
+            screens: {
+              Movie: 'SearchFilter',
             },
           },
         },
       },
-      NotFound: '*',
+      // NotFound: '*',
     },
   },
 };

@@ -1,47 +1,42 @@
-import React, { FC, useEffect } from 'react';
+import React, { FC, useState } from 'react';
 import { Text, TextInput, View, Linking } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
-import ButtonForm from '../components/ButtonForm';
-import Loading from '../components/Loader';
-import SocialButton from '../components/SocialButton';
-import { useAuthentication } from '../hooks/useAsyncStorage';
-import { signinSelector } from '../state/auth/auth.selector';
-import { TYPES } from '../state/auth/auth.types';
-import { stylesGlobal } from '../styles';
-import { NavigatorProps } from '../types';
+import ButtonForm from '../../components/ButtonForm';
+import Loading from '../../components/Loader';
+import SocialButton from '../../components/SocialButton';
+import { signIn } from '../../firebase';
+import { signinSelector } from '../../state/auth/auth.selector';
+import { stylesGlobal } from '../../styles';
+import { NavigatorProps } from '../../types';
 
 interface PropsI {
   navigation: NavigatorProps;
 }
 
 export const Signin: FC<PropsI> = ({ navigation }) => {
-  const dispatch = useDispatch();
-  const { data, loading, error } = useSelector((state) => signinSelector(state));
+  const dispatch = useDispatch<any>();
+  const { isLoading } = useSelector((state) => signinSelector(state));
+  const [email, setEmail] = useState<string>('');
+  const [password, setPassword] = useState<string>('');
 
-  const { token, getToken, saveToken } = useAuthentication();
-  console.log(token);
-
-  function sendForm() {
+  async function sendForm() {
     const user = {
-      email: 'mykeroly@gmail.com',
-      password: '555111444',
+      email,
+      password,
     };
-    dispatch({ type: TYPES.SIGNIN_REQUEST, user: user });
-  }
-
-  useEffect(() => {
-    getToken();
-    if (token) navigation.replace('Layout');
-    if (data?.token) {
-      saveToken(data.token);
-      navigation.navigate('Preference');
+    try {
+      await signIn(user);
+    } catch (error) {
+      console.log(error);
     }
-  }, [data, token]);
+
+    navigation.replace('Layout');
+  }
 
   return (
     <>
-      {loading && <Loading />}
-      <View style={stylesGlobal.container}>
+      {isLoading && <Loading />}
+      <View style={[stylesGlobal.containerCenter, { paddingHorizontal: 20 }]}>
         <Text style={stylesGlobal.titleForm}>Sign In</Text>
         <SocialButton
           icon="google"
@@ -50,26 +45,26 @@ export const Signin: FC<PropsI> = ({ navigation }) => {
         >
           Sign In with Google
         </SocialButton>
-        <SocialButton
+        {/* <SocialButton
           icon="apple1"
           accessibilityLabel="Sign In with Apple account"
           onPres={() => Linking.openURL('https://apple.com')}
         >
           Sign In with Apple
-        </SocialButton>
+        </SocialButton> */}
         <Text style={{ color: 'grey', textAlign: 'center' }}>or</Text>
         <TextInput
           style={stylesGlobal.input}
           placeholderTextColor="#ccc"
           placeholder="Email address"
-          onChangeText={() => {}}
+          onChangeText={(text) => setEmail(text)}
         />
         <TextInput
           style={stylesGlobal.input}
           placeholderTextColor="#ccc"
           placeholder="Password"
           secureTextEntry={true}
-          onChangeText={() => {}}
+          onChangeText={(text) => setPassword(text)}
         />
         <ButtonForm sendForm={sendForm}>Sign In</ButtonForm>
         <Text style={{ marginTop: 20, color: '#4b73ff' }} onPress={() => console.log('reset password')}>

@@ -9,9 +9,10 @@ import NotFoundScreen from '../screens/NotFoundScreen';
 import { RootStackParamList } from '../types';
 import BottomTabNavigator from './BottomTabNavigator';
 import LinkingConfiguration from './LinkingConfiguration';
-import Signup from '../screens/Signup';
-import Signin from '../screens/Signin';
+import Signup from '../screens/Auth/Signup';
+import Signin from '../screens/Auth/Signin';
 import Preference from '../screens/Preference';
+import useGetUserData from '../hooks/useAuthFirebase';
 
 // If you are not familiar with React Navigation, we recommend going through the
 // "Fundamentals" guide: https://reactnavigation.org/docs/getting-started
@@ -28,6 +29,8 @@ export default function Navigation({ colorScheme }: { colorScheme: ColorSchemeNa
 const Stack = createStackNavigator<RootStackParamList>();
 
 function RootNavigator() {
+  const { userData } = useGetUserData();
+  console.log(userData);
   return (
     <Stack.Navigator screenOptions={{ headerShown: false }}>
       <Stack.Screen name="Onboarding" component={Onboarding} />

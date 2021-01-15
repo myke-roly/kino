@@ -1,4 +1,4 @@
-import { URL_BASE } from './constants';
+import { getFinalUrl } from './constants';
 
 export enum Methods {
   get = 'GET',
@@ -27,12 +27,15 @@ export interface FetchModuleI {
   method: string;
   payload?: {} | null;
   type?: {};
+  movies?: boolean;
+  params?: string;
 }
 
 // export const fetchModule: FetchModuleI = async(url, token = null, method = Methods.get, payload = null, type = TYPES.default): Promise<any> => {
 export const fetchModule = async (options: FetchModuleI): Promise<any> => {
-  console.log(options);
-  const { url, token, method, payload, type } = options;
+  const { url, token, method, payload, type, movies, params } = options;
+
+  const url_base = getFinalUrl(url, movies, params);
 
   const headers = token
     ? {
@@ -45,15 +48,17 @@ export const fetchModule = async (options: FetchModuleI): Promise<any> => {
         'Content-Type': type,
       };
 
+  const body = payload ? JSON.stringify(payload) : null;
+
   const requestOptions: RequestOptionsI = {
     crossDomain: true,
     method: method,
     headers: headers,
-    body: JSON.stringify(payload),
+    body: body,
   };
 
   try {
-    const response = await fetch(`${URL_BASE}/${url}`, requestOptions);
+    const response = await fetch(url_base, requestOptions);
     const textBody = await response.text();
     const data = textBody.length > 0 ? JSON.parse(textBody) : null;
     return { response, data };

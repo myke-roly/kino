@@ -3,10 +3,17 @@ import { StyleSheet } from 'react-native';
 export const stylesGlobal = StyleSheet.create({
   container: {
     flex: 1,
+    backgroundColor: '#f8f8f8',
+    paddingHorizontal: 20,
+    paddingVertical: 50,
+  },
+  containerCenter: {
+    flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#fff',
-    padding: 30,
+    backgroundColor: '#f8f8f8',
+    // paddingHorizontal: 20,
+    // paddingVertical: 50,
   },
   titleForm: {
     fontSize: 30,
@@ -31,5 +38,16 @@ export const stylesGlobal = StyleSheet.create({
     shadowRadius: 7.5,
 
     elevation: 12,
+  },
+  shadow: {
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 12,
+    },
+    shadowOpacity: 0.37,
+    shadowRadius: 7.5,
+
+    elevation: 1,
   },
 });

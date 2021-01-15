@@ -1,37 +1,23 @@
-import { call, put, takeEvery } from 'redux-saga/effects';
+import { takeLatest } from 'redux-saga/effects';
 import { TYPES } from './auth.types';
-import * as service from '../auth/auth.action';
-import { UserSignupI } from '../../types';
+import * as service from './auth.services';
+import { makeWorker } from '../utils';
 
-interface Payload {
-  user: UserSignupI;
-}
+const watcherSignin = makeWorker(service.signin, {
+  success: TYPES.SIGNIN_SUCCESS,
+  failed: TYPES.SIGNIN_FAILED,
+  retry: TYPES.SIGNIN_REQUEST,
+});
 
-function* watcherSignup(payload: Payload) {
-  try {
-    const data = yield call(service.sigup, payload.user);
-    console.log(data);
-    yield put({ type: TYPES.SIGNUP_SUCCESS, payload: data });
-  } catch (error) {
-    console.error(error);
-    yield put({ type: TYPES.SIGNUP_FAILED });
-  }
-}
-
-function* watcherSignin(payload: Payload) {
-  try {
-    const data = yield call(service.sigin, payload.user);
-    console.log(data);
-    yield put({ type: TYPES.SIGNIN_SUCCESS, payload: data });
-  } catch (error) {
-    console.error(error);
-    yield put({ type: TYPES.SIGNIN_FAILED });
-  }
-}
+const watcherSignup = makeWorker(service.signup, {
+  success: TYPES.SIGNUP_SUCCESS,
+  failed: TYPES.SIGNUP_FAILED,
+  retry: TYPES.SIGNIN_REQUEST,
+});
 
 function* authSaga() {
-  yield takeEvery<any>(TYPES.SIGNUP_REQUEST, watcherSignup);
-  yield takeEvery<any>(TYPES.SIGNIN_REQUEST, watcherSignin);
+  yield takeLatest<any>(TYPES.SIGNUP_REQUEST, watcherSignup);
+  yield takeLatest<any>(TYPES.SIGNIN_REQUEST, watcherSignin);
 }
 
 export default authSaga;

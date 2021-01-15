@@ -1,38 +1,50 @@
-import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import React, { FC, useEffect } from 'react';
+import { Button, StyleSheet, Text, View, Image } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
 import Buttons from '../components/Buttons';
-import { stylesGlobal } from '../styles';
 
-const Preference = () => {
-  const movies: any[] = [
-    { name: 'mike' },
-    { name: 'mike' },
-    { name: 'mike' },
-    { name: 'mike' },
-    { name: 'mike' },
-    { name: 'mike' },
-    { name: 'mike' },
-    { name: 'mike' },
-    { name: 'mike' },
-    { name: 'mike' },
-    { name: 'mike' },
-    { name: 'mike' },
-  ];
+import { NavigatorProps } from '../types';
+import { useDispatch, useSelector } from 'react-redux';
+import { moviesSelector } from '../state/movies/movies.selector';
+import Loading from '../components/Loader';
+import { getMovies } from '../state/movies/movies.actions';
+interface PropsI {
+  navigation: NavigatorProps;
+}
+
+const Preference: FC<PropsI> = ({ navigation }) => {
+  const dispatch = useDispatch();
+  const { data, isLoading } = useSelector((state) => moviesSelector(state));
+
+  function next() {
+    navigation.navigate('Layout');
+  }
+
+  useEffect(() => {
+    dispatch(getMovies({ page: 1 }));
+  }, []);
+
   return (
     <>
-      <View style={stylesGlobal.container}>
+      {isLoading && <Loading />}
+      <View style={styles.main}>
         <ScrollView showsVerticalScrollIndicator={false}>
           <Text style={styles.title}>Pick your favorite movies</Text>
           <View style={styles.list}>
-            {movies.map((movie) => (
-              <Text style={styles.item}>{movie.name}</Text>
+            {data?.results.map((movie: any, index: number) => (
+              <View key={index} style={styles.item}>
+                <Image
+                  source={{ uri: `https://image.tmdb.org/t/p/original/${movie.poster_path}`, width: 150, height: 150 }}
+                />
+                {/* <Text>{movie.title}</Text> */}
+              </View>
             ))}
           </View>
         </ScrollView>
-      </View>
-      <View style={styles.footer}>
-        <Buttons title="Continue" />
+        <View style={styles.footer}>
+          <Buttons title="Continue" onPress={next} />
+          <Button title="Continue" onPress={next} />
+        </View>
       </View>
     </>
   );
@@ -41,6 +53,10 @@ const Preference = () => {
 export default Preference;
 
 const styles = StyleSheet.create({
+  main: {
+    flex: 1,
+    marginTop: 10,
+  },
   title: {
     textAlign: 'center',
     fontSize: 20,
@@ -59,9 +75,6 @@ const styles = StyleSheet.create({
     margin: 10,
     width: 150,
     height: 150,
-    borderColor: '#333',
-    borderWidth: 2,
-    padding: 10,
   },
   footer: {
     backgroundColor: 'white',

@@ -1,7 +1,8 @@
-import { AuthActionsTypes, AuthI, initialState, TYPES } from './auth.types';
+import { AuthActionsTypes, AuthI, TYPES } from './auth.types';
+import { initialState } from '../types';
 
 const initialStateAuth = {
-  auth: initialState,
+  signup: initialState,
   signin: initialState,
 };
 
@@ -10,28 +11,28 @@ const reducer = (state = initialStateAuth, action: AuthActionsTypes): AuthI => {
     case TYPES.SIGNUP_REQUEST:
       return {
         ...state,
-        auth: {
+        signup: {
           data: null,
-          loading: true,
+          isLoading: true,
           error: null,
         },
       };
     case TYPES.SIGNUP_SUCCESS:
       return {
         ...state,
-        auth: {
+        signup: {
           data: action.payload.data,
-          loading: false,
+          isLoading: false,
           error: null,
         },
       };
     case TYPES.SIGNUP_FAILED:
       return {
         ...state,
-        auth: {
+        signup: {
           data: null,
-          loading: false,
-          error: 'ERROR EN LA PETICION',
+          isLoading: false,
+          error: action.payload.data,
         },
       };
     case TYPES.SIGNIN_REQUEST:
@@ -39,7 +40,7 @@ const reducer = (state = initialStateAuth, action: AuthActionsTypes): AuthI => {
         ...state,
         signin: {
           data: null,
-          loading: true,
+          isLoading: true,
           error: null,
         },
       };
@@ -48,7 +49,7 @@ const reducer = (state = initialStateAuth, action: AuthActionsTypes): AuthI => {
         ...state,
         signin: {
           data: action.payload.data,
-          loading: false,
+          isLoading: false,
           error: null,
         },
       };
@@ -57,13 +58,13 @@ const reducer = (state = initialStateAuth, action: AuthActionsTypes): AuthI => {
         ...state,
         signin: {
           data: null,
-          loading: false,
-          error: 'ERROR EN LA PETICION',
+          isLoading: false,
+          error: action.payload.data,
         },
       };
 
     default:
-      return state;
+      return { ...state };
   }
 };
 

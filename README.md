@@ -1,5 +1,5 @@
 ### KINO APP
 
-` yarn start ` 
-` yarn ios from iOS ` 
-` yarn start from  android` 
+start project: ` yarn start ` 
+start project on androiod: ` yarn ios from iOS ` 
+start project on ios: `yarn start from  android` 

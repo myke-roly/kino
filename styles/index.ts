@@ -7,20 +7,21 @@ export const stylesGlobal = StyleSheet.create({
     paddingHorizontal: 20,
     paddingVertical: 50,
   },
+
   containerCenter: {
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: '#f8f8f8',
-    // paddingHorizontal: 20,
-    // paddingVertical: 50,
   },
+
   titleForm: {
     fontSize: 30,
     color: 'black',
     fontWeight: 'bold',
     marginBottom: 30,
   },
+
   input: {
     margin: 10,
     width: '100%',
@@ -39,6 +40,7 @@ export const stylesGlobal = StyleSheet.create({
 
     elevation: 12,
   },
+  
   shadow: {
     shadowColor: '#000',
     shadowOffset: {

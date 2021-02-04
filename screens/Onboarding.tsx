@@ -21,6 +21,7 @@ const Onboarding: FC<PropsI> = ({ navigation }) => {
       });
     }
   }, [userData]);
+
   return (
     <>
       <View style={stylesGlobal.containerCenter}>

@@ -26,7 +26,6 @@ const Movie: FC<PropsI> = ({ route }) => {
     dispatch(getMovie({ movieId }));
   }, [movieId, dispatch]);
 
-  // console.log(data);
   return (
     <>
       {isLoading && <Loading />}

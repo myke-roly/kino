@@ -1,6 +1,6 @@
 import React, { FC, useState } from 'react';
 import { Text, TextInput, View, Linking } from 'react-native';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import ButtonForm from '../../components/ButtonForm';
 import Loading from '../../components/Loader';
 import SocialButton from '../../components/SocialButton';
@@ -14,7 +14,6 @@ interface PropsI {
 }
 
 export const Signin: FC<PropsI> = ({ navigation }) => {
-  const dispatch = useDispatch<any>();
   const { isLoading } = useSelector((state) => signinSelector(state));
   const [email, setEmail] = useState<string>('');
   const [password, setPassword] = useState<string>('');
@@ -45,13 +44,6 @@ export const Signin: FC<PropsI> = ({ navigation }) => {
         >
           Sign In with Google
         </SocialButton>
-        {/* <SocialButton
-          icon="apple1"
-          accessibilityLabel="Sign In with Apple account"
-          onPres={() => Linking.openURL('https://apple.com')}
-        >
-          Sign In with Apple
-        </SocialButton> */}
         <Text style={{ color: 'grey', textAlign: 'center' }}>or</Text>
         <TextInput
           style={stylesGlobal.input}
@@ -79,8 +71,6 @@ export const Signin: FC<PropsI> = ({ navigation }) => {
       </View>
     </>
   );
-};
-
-// const styles = StyleSheet.create({});
+}
 
 export default Signin;
